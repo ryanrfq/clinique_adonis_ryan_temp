@@ -4,7 +4,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 export default class ClinicsController {
   public async index({ response }: HttpContextContract) {
-    const data = await Database.from("clinique.clinics");
+    const data = await Database
+      .from("clinics");
 
     response.ok({
       message: "Berhasil mengambil data semua klinik",
@@ -17,7 +18,7 @@ export default class ClinicsController {
   public async store({ request, response }: HttpContextContract) {
     const objClinic = request.body();
 
-    const newRecord = await Database.table("clinique.clinics")
+    const newRecord = await Database.table("clinics")
       .returning("*")
       .insert({ id: uuidv4(), ...objClinic });
 
@@ -30,7 +31,7 @@ export default class ClinicsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const clinicData = await Database.from("clinique.clinics").where("id", id);
+    const clinicData = await Database.from("clinics").where("id", id);
 
     response.ok({
       message: "Berhasil mengambil data klinik",
@@ -44,7 +45,7 @@ export default class ClinicsController {
     const { id } = params;
     const newClinicData = request.body();
 
-    const updatedData = await Database.from("clinique.clinics")
+    const updatedData = await Database.from("clinics")
       .where("id", id)
       .update(newClinicData, "*");
 
@@ -63,7 +64,7 @@ export default class ClinicsController {
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const deletedRowsCount = await Database.from("clinique.clinics")
+    const deletedRowsCount = await Database.from("clinics")
       .where("id", id)
       .delete();
 
