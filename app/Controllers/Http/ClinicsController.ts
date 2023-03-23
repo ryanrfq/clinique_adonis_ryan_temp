@@ -5,7 +5,14 @@ import { v4 as uuidv4 } from 'uuid'
 export default class ClinicsController {
   public async index({ response }: HttpContextContract) {
     const data = await Database
-      .from("clinics");
+      .from("clinics")
+      .join('doctors', 'doctors.id', '=', 'clinics.doctor_id')
+      .join('employees', 'doctors.employee_id', '=', 'employees.id')
+      .select(
+        'clinics.id','clinics.name'
+        ,'doctors.id as doctor_id', 'employees.name as doctor_name'
+        ,'clinics.daily_quota'
+      )
 
     response.ok({
       message: "Berhasil mengambil data semua klinik",
@@ -31,7 +38,16 @@ export default class ClinicsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const clinicData = await Database.from("clinics").where("id", id);
+    const clinicData = await Database
+      .from("clinics")
+      .join('doctors', 'doctors.id', '=', 'clinics.doctor_id')
+      .join('employees', 'doctors.employee_id', '=', 'employees.id')
+      .select(
+        'clinics.id','clinics.name'
+        ,'doctors.id as doctor_id', 'employees.name as doctor_name'
+        ,'clinics.daily_quota'
+      )
+      .where("clinics.id", id);
 
     response.ok({
       message: "Berhasil mengambil data klinik",

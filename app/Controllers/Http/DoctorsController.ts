@@ -6,6 +6,16 @@ export default class DoctorsController {
   public async index({ response }: HttpContextContract) {
     const allDoctors = await Database
       .from('doctors')
+      .join('employees', 'employees.id', '=', 'doctors.employee_id')
+      .select(
+        'doctors.id', 'doctors.employee_id'
+        ,'employees.name as employee_name'
+        ,'employees.email as employee_email'
+        ,'employees.phone_number as employee_phone'
+        ,'doctors.specialization'
+        ,'doctors.license_number'
+        ,'doctors.fee'
+      )
       
       response.ok({
         message: "Berhasil mengambil data seluruh dokter",
@@ -35,7 +45,17 @@ export default class DoctorsController {
     
     const doctorData = await Database
       .from('doctors')
-      .where('id', id)
+      .join('employees', 'employees.id', '=', 'doctors.employee_id')
+      .select(
+        'doctors.id', 'doctors.employee_id'
+        ,'employees.name as employee_name'
+        ,'employees.email as employee_email'
+        ,'employees.phone_number as employee_phone'
+        ,'doctors.specialization'
+        ,'doctors.license_number'
+        ,'doctors.fee'
+      )
+      .where('doctors.id', id)
       
     // todo: handle response saat data tidak ditemukan
     response.ok({
