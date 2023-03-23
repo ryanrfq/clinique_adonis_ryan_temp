@@ -1,10 +1,10 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Database from '@ioc:Adonis/Lucid/Database'
+import TransactionDetail from 'App/Models/TransactionDetail';
 import { v4 as uuidv4 } from 'uuid'
 
 export default class TransactionDetailsController {
   public async index({ response }: HttpContextContract) {
-    const data = await Database.from("transaction_details");
+    const data = await TransactionDetail.query().preload("transaction");
 
     response.ok({
       message: "Berhasil mengambil data semua detail transaksi",
@@ -12,14 +12,15 @@ export default class TransactionDetailsController {
     });
   }
 
-  public async create({}: HttpContextContract) {}
+  // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const reqBody = request.body();
+    const newObj = request.body();
 
-    const newRecord = await Database.table("transaction_details")
-      .returning("*")
-      .insert({ id: uuidv4(), ...reqBody });
+    const newRecord = await TransactionDetail.create({
+      id: uuidv4(),
+      ...newObj,
+    });
 
     response.created({
       message: "Berhasil menyimpan data detail transaksi",
@@ -30,7 +31,10 @@ export default class TransactionDetailsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const selectedData = await Database.from("transaction_details").where("id", id);
+    const selectedData = await TransactionDetail.query()
+      .where("id", id)
+      .preload("transaction")
+      .firstOrFail();
 
     response.ok({
       message: "Berhasil mengambil data detail transaksi",
@@ -38,40 +42,30 @@ export default class TransactionDetailsController {
     });
   }
 
-  public async edit({}: HttpContextContract) {}
+  // public async edit({}: HttpContextContract) {}
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const newData = request.body();
+    const reqBody = request.body();
 
-    const updatedData = await Database.from("transaction_details")
-      .where("id", id)
-      .update(newData, "*");
+    const data = await TransactionDetail.findOrFail(id);
+    data.merge(reqBody).save();
 
-    if (updatedData.length <= 0) {
-      response.notFound({
-        message: "Gagal update: data detail transaksi tidak ditemukan",
-      });
-    } else {
-      response.ok({
-        message: "Berhasil mengubah data detail transaksi",
-        data: updatedData,
-      });
-    }
+    response.ok({
+      message: "Berhasil mengubah data detail transaksi",
+      data: data,
+    });
   }
 
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const deletedRowsCount = await Database.from("transaction_details")
-      .where("id", id)
-      .delete();
+    const data = await TransactionDetail.findOrFail(id)
+    await data.delete()
 
     response.ok({
       message: "Berhasil menghapus data detail transaksi",
-      data: {
-        deletedRowsCount,
-      },
+      data: {},
     });
   }
 }

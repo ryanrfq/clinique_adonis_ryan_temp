@@ -1,10 +1,10 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Database from '@ioc:Adonis/Lucid/Database'
+import MedicalRecord from 'App/Models/MedicalRecord';
 import { v4 as uuidv4 } from 'uuid'
 
 export default class MedicalRecordsController {
   public async index({ response }: HttpContextContract) {
-    const data = await Database.from("medical_records");
+    const data = await MedicalRecord.all();
 
     response.ok({
       message: "Berhasil mengambil data semua rekam medik",
@@ -12,14 +12,15 @@ export default class MedicalRecordsController {
     });
   }
 
-  public async create({}: HttpContextContract) {}
+  // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const reqBody = request.body();
+    const newObj = request.body();
 
-    const newRecord = await Database.table("medical_records")
-      .returning("*")
-      .insert({ id: uuidv4(), ...reqBody });
+    const newRecord = await MedicalRecord.create({
+      id: uuidv4(),
+      ...newObj,
+    });
 
     response.created({
       message: "Berhasil menyimpan data rekam medik",
@@ -30,7 +31,7 @@ export default class MedicalRecordsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const selectedData = await Database.from("medical_records").where("id", id);
+    const selectedData = await MedicalRecord.findOrFail(id);
 
     response.ok({
       message: "Berhasil mengambil data rekam medik",
@@ -38,40 +39,30 @@ export default class MedicalRecordsController {
     });
   }
 
-  public async edit({}: HttpContextContract) {}
+  // public async edit({}: HttpContextContract) {}
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const newData = request.body();
+    const reqBody = request.body();
 
-    const updatedData = await Database.from("medical_records")
-      .where("id", id)
-      .update(newData, "*");
+    const data = await MedicalRecord.findOrFail(id);
+    data.merge(reqBody).save();
 
-    if (updatedData.length <= 0) {
-      response.notFound({
-        message: "Gagal update: data rekam medik tidak ditemukan",
-      });
-    } else {
-      response.ok({
-        message: "Berhasil mengubah data rekam medik",
-        data: updatedData,
-      });
-    }
+    response.ok({
+      message: "Berhasil mengubah data rekam medik",
+      data: data,
+    });
   }
 
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const deletedRowsCount = await Database.from("medical_records")
-      .where("id", id)
-      .delete();
+    const data = await MedicalRecord.findOrFail(id)
+    await data.delete()
 
     response.ok({
       message: "Berhasil menghapus data rekam medik",
-      data: {
-        deletedRowsCount,
-      },
+      data: {},
     });
   }
 }

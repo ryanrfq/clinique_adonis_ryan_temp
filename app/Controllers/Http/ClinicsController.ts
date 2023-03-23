@@ -1,18 +1,14 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Database from '@ioc:Adonis/Lucid/Database'
+import Clinic from 'App/Models/Clinic';
 import { v4 as uuidv4 } from 'uuid'
 
 export default class ClinicsController {
   public async index({ response }: HttpContextContract) {
-    const data = await Database
-      .from("clinics")
-      .join('doctors', 'doctors.id', '=', 'clinics.doctor_id')
-      .join('employees', 'doctors.employee_id', '=', 'employees.id')
-      .select(
-        'clinics.id','clinics.name'
-        ,'doctors.id as doctor_id', 'employees.name as doctor_name'
-        ,'clinics.daily_quota'
-      )
+    const data = await Clinic.query().preload("doctor", (doctorQuery) => {
+      doctorQuery.preload("employee", (employeeQuery) => {
+        employeeQuery.select("name");
+      });
+    });
 
     response.ok({
       message: "Berhasil mengambil data semua klinik",
@@ -20,14 +16,15 @@ export default class ClinicsController {
     });
   }
 
-  public async create({}: HttpContextContract) {}
+  // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const objClinic = request.body();
+    const newObj = request.body();
 
-    const newRecord = await Database.table("clinics")
-      .returning("*")
-      .insert({ id: uuidv4(), ...objClinic });
+    const newRecord = await Clinic.create({
+      id: uuidv4(),
+      ...newObj,
+    });
 
     response.created({
       message: "Berhasil menyimpan data klinik",
@@ -38,57 +35,45 @@ export default class ClinicsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const clinicData = await Database
-      .from("clinics")
-      .join('doctors', 'doctors.id', '=', 'clinics.doctor_id')
-      .join('employees', 'doctors.employee_id', '=', 'employees.id')
-      .select(
-        'clinics.id','clinics.name'
-        ,'doctors.id as doctor_id', 'employees.name as doctor_name'
-        ,'clinics.daily_quota'
-      )
-      .where("clinics.id", id);
+    const data = await Clinic.query()
+      .where("id", id)
+      .preload("doctor", (doctorQuery) => {
+        doctorQuery.preload("employee", (employeeQuery) => {
+          employeeQuery.select("name");
+        });
+      })
+      .firstOrFail();
 
     response.ok({
       message: "Berhasil mengambil data klinik",
-      data: clinicData,
+      data: data,
     });
   }
 
-  public async edit({}: HttpContextContract) {}
+  // public async edit({}: HttpContextContract) {}
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const newClinicData = request.body();
+    const reqBody = request.body();
 
-    const updatedData = await Database.from("clinics")
-      .where("id", id)
-      .update(newClinicData, "*");
+    const data = await Clinic.findOrFail(id);
+    data.merge(reqBody).save();
 
-    if (updatedData.length <= 0) {
-      response.notFound({
-        message: "Gagal update: data klinik tidak ditemukan",
-      });
-    } else {
-      response.ok({
-        message: "Berhasil mengubah data klinik",
-        data: updatedData,
-      });
-    }
+    response.ok({
+      message: "Berhasil mengubah data klinik",
+      data: data,
+    });
   }
 
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const deletedRowsCount = await Database.from("clinics")
-      .where("id", id)
-      .delete();
+    const data = await Clinic.findOrFail(id)
+    await data.delete()
 
     response.ok({
       message: "Berhasil menghapus data klinik",
-      data: {
-        deletedRowsCount,
-      },
+      data: {},
     });
   }
 }

@@ -1,10 +1,11 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
+import RegistrationQueue from 'App/Models/RegistrationQueue';
 import { v4 as uuidv4 } from 'uuid'
 
 export default class RegistrationQueuesController {
   public async index({ response }: HttpContextContract) {
-    const data = await Database.from("registration_queues");
+    const data = await RegistrationQueue.all()
 
     response.ok({
       message: "Berhasil mengambil data semua antrian registrasi",
@@ -12,14 +13,15 @@ export default class RegistrationQueuesController {
     });
   }
 
-  public async create({}: HttpContextContract) {}
+  // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const reqBody = request.body();
+    const newObj = request.body();
 
-    const newRecord = await Database.table("registration_queues")
-      .returning("*")
-      .insert({ id: uuidv4(), ...reqBody });
+    const newRecord = await RegistrationQueue.create({
+      id: uuidv4(),
+      ...newObj,
+    });
 
     response.created({
       message: "Berhasil menyimpan data antrian registrasi",
@@ -30,7 +32,7 @@ export default class RegistrationQueuesController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const selectedData = await Database.from("registration_queues").where("id", id);
+    const selectedData = await RegistrationQueue.findOrFail(id)
 
     response.ok({
       message: "Berhasil mengambil data antrian registrasi",
@@ -38,40 +40,30 @@ export default class RegistrationQueuesController {
     });
   }
 
-  public async edit({}: HttpContextContract) {}
+  // public async edit({}: HttpContextContract) {}
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const newData = request.body();
+    const reqBody = request.body();
 
-    const updatedData = await Database.from("registration_queues")
-      .where("id", id)
-      .update(newData, "*");
+    const data = await RegistrationQueue.findOrFail(id);
+    data.merge(reqBody).save();
 
-    if (updatedData.length <= 0) {
-      response.notFound({
-        message: "Gagal update: data antrian registrasi tidak ditemukan",
-      });
-    } else {
-      response.ok({
-        message: "Berhasil mengubah data antrian registrasi",
-        data: updatedData,
-      });
-    }
+    response.ok({
+      message: "Berhasil mengubah data antrian registrasi",
+      data: data,
+    });
   }
 
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const deletedRowsCount = await Database.from("registration_queues")
-      .where("id", id)
-      .delete();
+    const data = await RegistrationQueue.findOrFail(id)
+    await data.delete()
 
     response.ok({
       message: "Berhasil menghapus data antrian registrasi",
-      data: {
-        deletedRowsCount,
-      },
+      data: {},
     });
   }
 }

@@ -1,10 +1,11 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
+import ClinicQueue from 'App/Models/ClinicQueue';
 import { v4 as uuidv4 } from 'uuid'
 
 export default class PatientsController {
   public async index({ response }: HttpContextContract) {
-    const data = await Database.from("clinic_queues");
+    const data = await ClinicQueue.all()
 
     response.ok({
       message: "Berhasil mengambil data semua antrian klinik",
@@ -12,14 +13,15 @@ export default class PatientsController {
     });
   }
 
-  public async create({}: HttpContextContract) {}
+  // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const reqBody = request.body();
+    const newObj = request.body();
 
-    const newRecord = await Database.table("clinic_queues")
-      .returning("*")
-      .insert({ id: uuidv4(), ...reqBody });
+    const newRecord = await ClinicQueue.create({
+      id: uuidv4(),
+      ...newObj,
+    });
 
     response.created({
       message: "Berhasil menyimpan data antrian klinik",
@@ -30,7 +32,8 @@ export default class PatientsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const selectedData = await Database.from("clinic_queues").where("id", id);
+    // const selectedData = await Database.from("clinic_queues").where("id", id);
+    const selectedData = await ClinicQueue.findOrFail(id)
 
     response.ok({
       message: "Berhasil mengambil data antrian klinik",
@@ -38,40 +41,30 @@ export default class PatientsController {
     });
   }
 
-  public async edit({}: HttpContextContract) {}
+  // public async edit({}: HttpContextContract) {}
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const newData = request.body();
+    const reqBody = request.body();
 
-    const updatedData = await Database.from("clinic_queues")
-      .where("id", id)
-      .update(newData, "*");
+    const data = await ClinicQueue.findOrFail(id);
+    data.merge(reqBody).save();
 
-    if (updatedData.length <= 0) {
-      response.notFound({
-        message: "Gagal update: data antrian klinik tidak ditemukan",
-      });
-    } else {
-      response.ok({
-        message: "Berhasil mengubah data antrian klinik",
-        data: updatedData,
-      });
-    }
+    response.ok({
+      message: "Berhasil mengubah data antrian klinik",
+      data: data,
+    });
   }
 
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const deletedRowsCount = await Database.from("clinic_queues")
-      .where("id", id)
-      .delete();
+    const data = await ClinicQueue.findOrFail(id)
+    await data.delete()
 
     response.ok({
       message: "Berhasil menghapus data antrian klinik",
-      data: {
-        deletedRowsCount,
-      },
+      data: {},
     });
   }
 }
