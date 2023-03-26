@@ -1,33 +1,34 @@
-import BaseSchema from '@ioc:Adonis/Lucid/Schema'
+import BaseSchema from "@ioc:Adonis/Lucid/Schema";
+import { Gender, Role } from "Contracts/enums";
 
 export default class extends BaseSchema {
-  protected tableName = 'employees'
+  protected tableName = "employees";
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.uuid('id').primary().notNullable()
-      table.string('name', 50)
-      table.string('username')
-      table.string('password')
-      table.string('nik', 16)
-      table.enum('role', ['doctor', 'employee', 'pharmacy', 'admin'])
-      table.date('join_date')
-      table.string('phone_number', 16)
-      table.text('address')
-      table.string('email')
-      table.string('specialization')
-      table.enum('gender', ['M', 'F'])
+      table.uuid("id").primary().notNullable();
+      table.string("name", 50);
+      table.string("username").unique();
+      table.string("password");
+      table.string("nik", 16).unique();
+      table.enum("role", Object.values(Role));
+      table.date("join_date");
+      table.string("phone_number", 16);
+      table.text("address");
+      table.string("email").unique();
+      table.string("specialization");
+      table.enum("gender", Object.values(Gender));
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */
-      table.timestamps(true, true)
+      table.timestamps(true, true);
       // table.timestamp('created_at', { useTz: true })
       // table.timestamp('updated_at', { useTz: true })
-    })
+    });
   }
 
-  public async down () {
-    this.schema.dropTable(this.tableName)
+  public async down() {
+    this.schema.dropTable(this.tableName);
   }
 }
