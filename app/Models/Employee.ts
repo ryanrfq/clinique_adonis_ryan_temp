@@ -1,46 +1,46 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from "luxon";
+import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
 
 export default class Employee extends BaseModel {
   @column({ isPrimary: true })
-  public id: string
+  public id: string;
 
   @column()
-  public name: string
+  public name: string;
 
   @column()
-  public username: string
+  public username: string;
 
   @column()
-  public password: string
+  public password: string;
 
   @column()
-  public nik: string
+  public nik: string;
 
   @column()
-  public role: string
+  public role: string;
 
   @column.date()
-  public joinDate: DateTime
+  public joinDate: DateTime;
 
   @column()
-  public phoneNumber: string
+  public phoneNumber: string;
 
   @column()
-  public address: string
+  public address: string;
 
   @column()
-  public email: string
+  public email: string;
 
   @column()
-  public specialization: string
+  public specialization: string | null;
 
   @column()
-  public gender: string
+  public gender: string;
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
 }
