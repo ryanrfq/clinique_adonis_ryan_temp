@@ -1,12 +1,12 @@
-import Database from '@ioc:Adonis/Lucid/Database'
-import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
+import Database from "@ioc:Adonis/Lucid/Database";
+import BaseSeeder from "@ioc:Adonis/Lucid/Seeder";
 
 export default class extends BaseSeeder {
-  public static environment = ['development', 'testing']
+  public static environment = ["development", "testing"];
 
-  public async run () {
+  public async run() {
     console.log("====== BEGIN Seeding Table: Employees ======");
-    
+
     await Database.table("employees").multiInsert([
       {
         id: "9ae0721b-a6f8-47fe-84d9-0fbdbf8f1cbf",
@@ -111,7 +111,7 @@ export default class extends BaseSeeder {
         name: "Nahum Wuruwu",
         username: "nahuman",
         password: "jfaGXcjM5",
-        nik: "3326164107570382",
+        nik: "3326164107570383",
         role: "employee",
         join_date: "2021-08-18T17:00:00.000Z",
         phone_number: "088257425333",
@@ -125,7 +125,7 @@ export default class extends BaseSeeder {
         name: "Victor Simatupang",
         username: "victorsim",
         password: "NTrXxts9r",
-        nik: "3326164511690002",
+        nik: "3326164511690001",
         role: "employee",
         join_date: "2022-01-13T17:00:00.000Z",
         phone_number: "0824060536",
@@ -139,7 +139,7 @@ export default class extends BaseSeeder {
         name: "Nadia Rahayu",
         username: "nadiiahayu",
         password: "mpqNSt6ZB",
-        nik: "3326161509700004",
+        nik: "3326161509700001",
         role: "employee",
         join_date: "2021-03-14T17:00:00.000Z",
         phone_number: "0859586882",
