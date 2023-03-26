@@ -6,8 +6,8 @@ export default class Patient extends BaseModel {
   @column({ isPrimary: true })
   public id: string;
 
-  @column()
-  public registBy: string;
+  @column({ columnName: "regist_by" })
+  public employeeId: string;
 
   @belongsTo(() => Employee)
   public employee: BelongsTo<typeof Employee>;

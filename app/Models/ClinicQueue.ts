@@ -8,8 +8,8 @@ export default class ClinicQueue extends BaseModel {
   @column({ isPrimary: true })
   public id: string;
 
-  @column()
-  public registrationId: string;
+  @column({ columnName: "registration_id" })
+  public registrationQueueId: string;
 
   @belongsTo(() => RegistrationQueue)
   public registrationQueue: BelongsTo<typeof RegistrationQueue>;
