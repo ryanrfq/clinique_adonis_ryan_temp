@@ -1,11 +1,12 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Database from '@ioc:Adonis/Lucid/Database'
-import ClinicQueue from 'App/Models/ClinicQueue';
-import { v4 as uuidv4 } from 'uuid'
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import ClinicQueue from "App/Models/ClinicQueue";
+import CreateClinicQueueValidator from "App/Validators/CreateClinicQueueValidator";
+import UpdateClinicQueueValidator from "App/Validators/UpdateClinicQueueValidator";
+import { v4 as uuidv4 } from "uuid";
 
 export default class PatientsController {
   public async index({ response }: HttpContextContract) {
-    const data = await ClinicQueue.all()
+    const data = await ClinicQueue.all();
 
     response.ok({
       message: "Berhasil mengambil data semua antrian klinik",
@@ -15,12 +16,14 @@ export default class PatientsController {
 
   // public async create({}: HttpContextContract) {}
 
-  public async store({ request, response }: HttpContextContract) {
-    const newObj = request.body();
+  public async store({ request, response, params }: HttpContextContract) {
+    const { clinic_id } = params;
+    const payload = await request.validate(CreateClinicQueueValidator);
 
     const newRecord = await ClinicQueue.create({
       id: uuidv4(),
-      ...newObj,
+      clinicId: clinic_id,
+      ...payload,
     });
 
     response.created({
@@ -32,8 +35,7 @@ export default class PatientsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    // const selectedData = await Database.from("clinic_queues").where("id", id);
-    const selectedData = await ClinicQueue.findOrFail(id)
+    const selectedData = await ClinicQueue.findOrFail(id);
 
     response.ok({
       message: "Berhasil mengambil data antrian klinik",
@@ -45,11 +47,16 @@ export default class PatientsController {
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const reqBody = request.body();
+    const payload = await request.validate(UpdateClinicQueueValidator);
+
+    if (JSON.stringify(payload) === "{}") {
+      return response.badRequest({
+        message: "Request body tidak boleh kosong",
+      });
+    }
 
     const data = await ClinicQueue.findOrFail(id);
-    data.merge(reqBody).save();
-
+    data.merge(payload).save();
     response.ok({
       message: "Berhasil mengubah data antrian klinik",
       data: data,
@@ -59,8 +66,8 @@ export default class PatientsController {
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const data = await ClinicQueue.findOrFail(id)
-    await data.delete()
+    const data = await ClinicQueue.findOrFail(id);
+    await data.delete();
 
     response.ok({
       message: "Berhasil menghapus data antrian klinik",

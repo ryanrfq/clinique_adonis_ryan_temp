@@ -1,6 +1,8 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Pharmacist from 'App/Models/Pharmacist';
-import { v4 as uuidv4 } from 'uuid'
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Pharmacist from "App/Models/Pharmacist";
+import CreatePharmacistValidator from "App/Validators/CreatePharmacistValidator";
+import UpdatePharmacistValidator from "App/Validators/UpdatePharmacistValidator";
+import { v4 as uuidv4 } from "uuid";
 
 export default class PharmacistsController {
   public async index({ response }: HttpContextContract) {
@@ -20,11 +22,10 @@ export default class PharmacistsController {
   // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const newObj = request.body();
-
+    const payload = await request.validate(CreatePharmacistValidator);
     const newRecord = await Pharmacist.create({
       id: uuidv4(),
-      ...newObj,
+      ...payload,
     });
 
     response.created({
@@ -53,10 +54,17 @@ export default class PharmacistsController {
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const reqBody = request.body();
+    const payload = await request.validate(UpdatePharmacistValidator);
+
+    if (JSON.stringify(payload) === "{}") {
+      return response.badRequest({
+        message: "Request body tidak boleh kosong",
+      });
+    }
 
     const data = await Pharmacist.findOrFail(id);
-    data.merge(reqBody).save();
+    // error no properties, tapi update berhasil...
+    data.merge(payload).save();
 
     response.ok({
       message: "Berhasil mengubah data apoteker",

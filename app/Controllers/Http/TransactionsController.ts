@@ -1,10 +1,14 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Transaction from 'App/Models/Transaction';
-import { v4 as uuidv4 } from 'uuid'
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Transaction from "App/Models/Transaction";
+import CreateTransactionValidator from "App/Validators/CreateTransactionValidator";
+import UpdateTransactionValidator from "App/Validators/UpdateTransactionValidator";
+import { v4 as uuidv4 } from "uuid";
 
 export default class TransactionsController {
   public async index({ response }: HttpContextContract) {
-    const data = await Transaction.all();
+    const data = await Transaction.query().preload("medicalRecord", (mdQuery) =>
+      mdQuery.preload("patient")
+    );
 
     response.ok({
       message: "Berhasil mengambil data semua transaksi",
@@ -15,11 +19,12 @@ export default class TransactionsController {
   // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const newObj = request.body();
+    // const newObj = request.body();
+    const payload = await request.validate(CreateTransactionValidator);
 
     const newRecord = await Transaction.create({
       id: uuidv4(),
-      ...newObj,
+      ...payload,
     });
 
     response.created({
@@ -31,7 +36,10 @@ export default class TransactionsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const selectedData = await Transaction.findOrFail(id);
+    const selectedData = await Transaction.query()
+      .where("id", id)
+      .preload("medicalRecord", (mdQuery) => mdQuery.preload("patient"))
+      .firstOrFail();
 
     response.ok({
       message: "Berhasil mengambil data transaksi",
@@ -43,10 +51,16 @@ export default class TransactionsController {
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const reqBody = request.body();
+    const payload = await request.validate(UpdateTransactionValidator);
+
+    if (JSON.stringify(payload) === "{}") {
+      return response.badRequest({
+        message: "Request body tidak boleh kosong",
+      });
+    }
 
     const data = await Transaction.findOrFail(id);
-    data.merge(reqBody).save();
+    data.merge(payload).save();
 
     response.ok({
       message: "Berhasil mengubah data transaksi",
@@ -57,8 +71,8 @@ export default class TransactionsController {
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const data = await Transaction.findOrFail(id)
-    await data.delete()
+    const data = await Transaction.findOrFail(id);
+    await data.delete();
 
     response.ok({
       message: "Berhasil menghapus data transaksi",

@@ -1,10 +1,30 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import MedicalRecord from 'App/Models/MedicalRecord';
-import { v4 as uuidv4 } from 'uuid'
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import MedicalRecord from "App/Models/MedicalRecord";
+import CreateMedicalRecordValidator from "App/Validators/CreateMedicalRecordValidator";
+import UpdateMedicalRecordValidator from "App/Validators/UpdateMedicalRecordValidator";
+import { v4 as uuidv4 } from "uuid";
 
 export default class MedicalRecordsController {
-  public async index({ response }: HttpContextContract) {
-    const data = await MedicalRecord.all();
+  public async index({ response, params }: HttpContextContract) {
+    const { patient_id } = params;
+    const data = await MedicalRecord.query()
+      .where("patient_id", patient_id)
+      .preload("patient", (patientQuery) => {
+        patientQuery.select(
+          "id",
+          "regist_by",
+          "status",
+          "gender",
+          "address",
+          "phone",
+          "birthday",
+          "email",
+          "name",
+          "register_date",
+          "nik",
+          "is_verified"
+        );
+      });
 
     response.ok({
       message: "Berhasil mengambil data semua rekam medik",
@@ -14,12 +34,13 @@ export default class MedicalRecordsController {
 
   // public async create({}: HttpContextContract) {}
 
-  public async store({ request, response }: HttpContextContract) {
-    const newObj = request.body();
-
+  public async store({ request, response, params }: HttpContextContract) {
+    const { patient_id } = params; // <- apakah ini perlu di validasi?
+    const payload = await request.validate(CreateMedicalRecordValidator);
     const newRecord = await MedicalRecord.create({
       id: uuidv4(),
-      ...newObj,
+      patientId: patient_id,
+      ...payload,
     });
 
     response.created({
@@ -31,7 +52,25 @@ export default class MedicalRecordsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const selectedData = await MedicalRecord.findOrFail(id);
+    const selectedData = await MedicalRecord.query()
+      .where("id", id)
+      .preload("patient", (patientQuery) => {
+        patientQuery.select(
+          "id",
+          "regist_by",
+          "status",
+          "gender",
+          "address",
+          "phone",
+          "birthday",
+          "email",
+          "name",
+          "register_date",
+          "nik",
+          "is_verified"
+        );
+      })
+      .firstOrFail();
 
     response.ok({
       message: "Berhasil mengambil data rekam medik",
@@ -43,10 +82,16 @@ export default class MedicalRecordsController {
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const reqBody = request.body();
+    const payload = await request.validate(UpdateMedicalRecordValidator);
+
+    if (JSON.stringify(payload) === "{}") {
+      return response.badRequest({
+        message: "Request body tidak boleh kosong",
+      });
+    }
 
     const data = await MedicalRecord.findOrFail(id);
-    data.merge(reqBody).save();
+    data.merge(payload).save();
 
     response.ok({
       message: "Berhasil mengubah data rekam medik",
@@ -57,8 +102,8 @@ export default class MedicalRecordsController {
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const data = await MedicalRecord.findOrFail(id)
-    await data.delete()
+    const data = await MedicalRecord.findOrFail(id);
+    await data.delete();
 
     response.ok({
       message: "Berhasil menghapus data rekam medik",

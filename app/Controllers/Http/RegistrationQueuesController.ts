@@ -1,11 +1,12 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Database from '@ioc:Adonis/Lucid/Database'
-import RegistrationQueue from 'App/Models/RegistrationQueue';
-import { v4 as uuidv4 } from 'uuid'
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import RegistrationQueue from "App/Models/RegistrationQueue";
+import CreateRegistrationQueueValidator from "App/Validators/CreateRegistrationQueueValidator";
+import UpdateRegistrationQueueValidator from "App/Validators/UpdateRegistrationQueueValidator";
+import { v4 as uuidv4 } from "uuid";
 
 export default class RegistrationQueuesController {
   public async index({ response }: HttpContextContract) {
-    const data = await RegistrationQueue.all()
+    const data = await RegistrationQueue.query().preload("clinic");
 
     response.ok({
       message: "Berhasil mengambil data semua antrian registrasi",
@@ -16,11 +17,10 @@ export default class RegistrationQueuesController {
   // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const newObj = request.body();
-
+    const payload = await request.validate(CreateRegistrationQueueValidator);
     const newRecord = await RegistrationQueue.create({
       id: uuidv4(),
-      ...newObj,
+      ...payload,
     });
 
     response.created({
@@ -32,7 +32,10 @@ export default class RegistrationQueuesController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const selectedData = await RegistrationQueue.findOrFail(id)
+    const selectedData = await RegistrationQueue.query()
+      .where("id", id)
+      .preload("clinic")
+      .firstOrFail();
 
     response.ok({
       message: "Berhasil mengambil data antrian registrasi",
@@ -44,10 +47,16 @@ export default class RegistrationQueuesController {
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const reqBody = request.body();
+    const payload = await request.validate(UpdateRegistrationQueueValidator);
+
+    if (JSON.stringify(payload) === "{}") {
+      return response.badRequest({
+        message: "Request body tidak boleh kosong",
+      });
+    }
 
     const data = await RegistrationQueue.findOrFail(id);
-    data.merge(reqBody).save();
+    data.merge(payload).save();
 
     response.ok({
       message: "Berhasil mengubah data antrian registrasi",
@@ -58,8 +67,8 @@ export default class RegistrationQueuesController {
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const data = await RegistrationQueue.findOrFail(id)
-    await data.delete()
+    const data = await RegistrationQueue.findOrFail(id);
+    await data.delete();
 
     response.ok({
       message: "Berhasil menghapus data antrian registrasi",

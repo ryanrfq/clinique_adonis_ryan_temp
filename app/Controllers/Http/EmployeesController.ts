@@ -1,10 +1,24 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Employee from 'App/Models/Employee';
-import { v4 as uuidv4 } from 'uuid'
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Employee from "App/Models/Employee";
+import CreateEmployeeValidator from "App/Validators/CreateEmployeeValidator";
+import UpdateEmployeeValidator from "App/Validators/UpdateEmployeeValidator";
+import { v4 as uuidv4 } from "uuid";
 
 export default class EmployeesController {
   public async index({ response }: HttpContextContract) {
-    const data = await Employee.all();
+    const data = await Employee.query().select(
+      "id",
+      "name",
+      "username",
+      "nik",
+      "role",
+      "join_date",
+      "phone_number",
+      "address",
+      "email",
+      "specialization",
+      "gender"
+    );
 
     response.ok({
       message: "Berhasil mengambil data karyawan",
@@ -15,11 +29,10 @@ export default class EmployeesController {
   // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const objEmployee = request.body();
-
+    const payload = await request.validate(CreateEmployeeValidator);
     const newRecord = await Employee.create({
       id: uuidv4(),
-      ...objEmployee,
+      ...payload,
     });
 
     response.created({
@@ -30,7 +43,22 @@ export default class EmployeesController {
 
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
-    const employeeData = await Employee.findOrFail(id);
+    const employeeData = await Employee.query()
+      .where("id", id)
+      .select(
+        "id",
+        "name",
+        "username",
+        "nik",
+        "role",
+        "join_date",
+        "phone_number",
+        "address",
+        "email",
+        "specialization",
+        "gender"
+      )
+      .firstOrFail();
 
     response.ok({
       message: "Berhasil mengambil data karyawan",
@@ -42,13 +70,20 @@ export default class EmployeesController {
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const newEmployeeData = request.body();
+    const payload = await request.validate(UpdateEmployeeValidator);
+
+    if (JSON.stringify(payload) === "{}") {
+      return response.badRequest({
+        message: "Request body tidak boleh kosong",
+      });
+    }
+
     const employee = await Employee.findOrFail(id);
-    employee.merge(newEmployeeData).save();
+    employee.merge(payload).save();
 
     response.ok({
       message: "Berhasil mengubah data karyawan",
-      data: employee
+      data: employee,
     });
   }
 

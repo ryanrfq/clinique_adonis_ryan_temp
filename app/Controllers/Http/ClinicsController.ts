@@ -1,6 +1,8 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Clinic from 'App/Models/Clinic';
-import { v4 as uuidv4 } from 'uuid'
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Clinic from "App/Models/Clinic";
+import CreateClinicValidator from "App/Validators/CreateClinicValidator";
+import UpdateClinicValidator from "App/Validators/UpdateClinicValidator";
+import { v4 as uuidv4 } from "uuid";
 
 export default class ClinicsController {
   public async index({ response }: HttpContextContract) {
@@ -19,11 +21,11 @@ export default class ClinicsController {
   // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const newObj = request.body();
+    const payload = await request.validate(CreateClinicValidator);
 
     const newRecord = await Clinic.create({
       id: uuidv4(),
-      ...newObj,
+      ...payload,
     });
 
     response.created({
@@ -54,10 +56,16 @@ export default class ClinicsController {
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const reqBody = request.body();
+    const payload = await request.validate(UpdateClinicValidator);
+
+    if (JSON.stringify(payload) === "{}") {
+      return response.badRequest({
+        message: "Request body tidak boleh kosong",
+      });
+    }
 
     const data = await Clinic.findOrFail(id);
-    data.merge(reqBody).save();
+    data.merge(payload).save();
 
     response.ok({
       message: "Berhasil mengubah data klinik",
@@ -68,8 +76,8 @@ export default class ClinicsController {
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const data = await Clinic.findOrFail(id)
-    await data.delete()
+    const data = await Clinic.findOrFail(id);
+    await data.delete();
 
     response.ok({
       message: "Berhasil menghapus data klinik",

@@ -1,23 +1,23 @@
-import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import Employee from './Employee'
+import { DateTime } from "luxon";
+import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import Employee from "./Employee";
 
 export default class Pharmacist extends BaseModel {
   @column({ isPrimary: true })
-  public id: string
+  public id: string;
 
   @column()
-  public employeeId: string
-  
+  public employeeId: string;
+
   @belongsTo(() => Employee)
-  public employee: BelongsTo<typeof Employee>
+  public employee: BelongsTo<typeof Employee>;
 
   @column()
-  public licenseNumber: string
-  
+  public licenseNumber: string;
+
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
 }

@@ -1,10 +1,11 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Patient from 'App/Models/Patient';
-import { v4 as uuidv4 } from 'uuid'
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Patient from "App/Models/Patient";
+import CreatePatientValidator from "App/Validators/CreatePatientValidator";
+import UpdatePatientValidator from "App/Validators/UpdatePatientValidator";
+import { v4 as uuidv4 } from "uuid";
 
 export default class PatientsController {
   public async index({ response }: HttpContextContract) {
-    // const data = await Database.from("patients");
     const data = await Patient.all();
 
     response.ok({
@@ -16,11 +17,11 @@ export default class PatientsController {
   // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    const newObj = request.body();
+    const payload = await request.validate(CreatePatientValidator);
 
     const newRecord = await Patient.create({
       id: uuidv4(),
-      ...newObj,
+      ...payload,
     });
 
     response.created({
@@ -45,10 +46,16 @@ export default class PatientsController {
 
   public async update({ params, request, response }: HttpContextContract) {
     const { id } = params;
-    const reqBody = request.body();
+    const payload = await request.validate(UpdatePatientValidator);
+
+    if (JSON.stringify(payload) === "{}") {
+      return response.badRequest({
+        message: "Request body tidak boleh kosong",
+      });
+    }
 
     const data = await Patient.findOrFail(id);
-    data.merge(reqBody).save();
+    data.merge(payload).save();
 
     response.ok({
       message: "Berhasil mengubah data pasien",
@@ -59,8 +66,8 @@ export default class PatientsController {
   public async destroy({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const data = await Patient.findOrFail(id)
-    await data.delete()
+    const data = await Patient.findOrFail(id);
+    await data.delete();
 
     response.ok({
       message: `Berhasil menghapus data pasien ${data.id}`,
