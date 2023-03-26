@@ -64,7 +64,12 @@ export default class PharmacistsController {
 
     const data = await Pharmacist.findOrFail(id);
     // error no properties, tapi update berhasil...
-    data.merge(payload).save();
+    data
+      .merge({
+        employeeId: payload.employee_id,
+        licenseNumber: payload.license_number,
+      })
+      .save();
 
     response.ok({
       message: "Berhasil mengubah data apoteker",
