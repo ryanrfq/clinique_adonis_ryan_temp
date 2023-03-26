@@ -18,15 +18,27 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import Route from "@ioc:Adonis/Core/Route";
 
-Route.resource('/employees', 'EmployeesController').apiOnly()
-Route.resource('/doctors', 'DoctorsController').apiOnly()
-Route.resource('/clinics', 'ClinicsController').apiOnly()
-Route.resource('/pharmacists', 'PharmacistsController').apiOnly()
-Route.resource('/patients', 'PatientsController').apiOnly()
-Route.resource('/registration_queues', 'RegistrationQueuesController').apiOnly()
-Route.resource('/clinic_queues', 'ClinicQueuesController').apiOnly()
-Route.resource('/medical_records', 'MedicalRecordsController').apiOnly()
-Route.resource('/transactions', 'TransactionsController').apiOnly()
-Route.resource('/transaction_details', 'TransactionDetailsController').apiOnly()
+Route.resource("/employees", "EmployeesController").apiOnly();
+Route.resource("/doctors", "DoctorsController").apiOnly();
+Route.resource("/pharmacists", "PharmacistsController").apiOnly();
+Route.resource("/clinics", "ClinicsController").apiOnly();
+Route.resource("/patients", "PatientsController").apiOnly();
+Route.shallowResource(
+  "patients.medical-records",
+  "MedicalRecordsController"
+).apiOnly();
+Route.resource(
+  "/registration-queues",
+  "RegistrationQueuesController"
+).apiOnly();
+Route.shallowResource(
+  "clinics.clinic-queues",
+  "ClinicQueuesController"
+).apiOnly();
+Route.resource("/transactions", "TransactionsController").apiOnly();
+Route.shallowResource(
+  "transaction.transaction-details",
+  "TransactionDetailsController"
+).apiOnly();
