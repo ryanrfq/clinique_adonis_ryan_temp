@@ -5,8 +5,12 @@ import UpdateClinicQueueValidator from "App/Validators/UpdateClinicQueueValidato
 import { v4 as uuidv4 } from "uuid";
 
 export default class PatientsController {
-  public async index({ response }: HttpContextContract) {
-    const data = await ClinicQueue.all();
+  public async index({ response, params }: HttpContextContract) {
+    const { clinic_id } = params;
+    const data = await ClinicQueue.query()
+      .where("clinic_id", clinic_id)
+      .preload("registrationQueue")
+      .preload("clinic");
 
     response.ok({
       message: "Berhasil mengambil data semua antrian klinik",
@@ -35,7 +39,11 @@ export default class PatientsController {
   public async show({ params, response }: HttpContextContract) {
     const { id } = params;
 
-    const selectedData = await ClinicQueue.findOrFail(id);
+    const selectedData = await ClinicQueue.query()
+      .where("id", id)
+      .preload("registrationQueue")
+      .preload("clinic")
+      .firstOrFail();
 
     response.ok({
       message: "Berhasil mengambil data antrian klinik",
