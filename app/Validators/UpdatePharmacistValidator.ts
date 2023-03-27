@@ -7,6 +7,8 @@ export default class UpdatePharmacistValidator {
   public schema = schema.create({
     employee_id: schema.string.optional({ trim: true }, [
       rules.uuid({ version: 4 }),
+      rules.unique({ table: "pharmacists", column: "employee_id" }),
+      rules.exists({ table: "employees", column: "id" }),
     ]),
     license_number: schema.string.optional({ trim: true }, [
       rules.unique({ table: "pharmacists", column: "license_number" }),

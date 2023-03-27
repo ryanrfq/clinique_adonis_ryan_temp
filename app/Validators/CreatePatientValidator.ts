@@ -5,7 +5,10 @@ export default class CreatePatientValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    regist_by: schema.string({ trim: true }, [rules.uuid({ version: 4 })]),
+    regist_by: schema.string({ trim: true }, [
+      rules.uuid({ version: 4 }),
+      rules.exists({ table: "employees", column: "id" }),
+    ]),
     status: schema.enum(["menikah", "lajang"]),
     gender: schema.enum(["M", "F"]),
     address: schema.string({ trim: true, escape: true }),

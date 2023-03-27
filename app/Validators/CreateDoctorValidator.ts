@@ -8,6 +8,7 @@ export default class CreateDoctorValidator {
     employee_id: schema.string({ trim: true }, [
       rules.uuid({ version: 4 }),
       rules.unique({ table: "doctors", column: "employee_id" }),
+      rules.exists({ table: "employees", column: "id" }),
     ]),
     license_number: schema.string({ trim: true }, [
       rules.unique({ table: "doctors", column: "license_number" }),

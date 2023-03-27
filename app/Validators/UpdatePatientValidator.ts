@@ -7,6 +7,7 @@ export default class UpdatePatientValidator {
   public schema = schema.create({
     regist_by: schema.string.optional({ trim: true }, [
       rules.uuid({ version: 4 }),
+      rules.exists({ table: "employees", column: "id" }),
     ]),
     status: schema.enum.optional(["menikah", "lajang"]),
     gender: schema.enum.optional(["M", "F"]),

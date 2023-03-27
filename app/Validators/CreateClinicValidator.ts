@@ -8,6 +8,7 @@ export default class CreateClinicValidator {
     doctor_id: schema.string({ trim: true }, [
       rules.uuid({ version: 4 }),
       rules.unique({ table: "clinics", column: "doctor_id" }),
+      rules.exists({ table: "doctors", column: "id" }),
     ]),
     name: schema.string({ trim: true }, [
       rules.alphaNum({ allow: ["space", "dash", "underscore"] }),

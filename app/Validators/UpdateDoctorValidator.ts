@@ -7,6 +7,7 @@ export default class UpdateDoctorValidator {
   public schema = schema.create({
     employee_id: schema.string.optional({ trim: true }, [
       rules.uuid({ version: 4 }),
+      rules.exists({ table: "employees", column: "id" }),
     ]),
     license_number: schema.string.optional({ trim: true }, [
       rules.unique({ table: "doctors", column: "license_number" }),
