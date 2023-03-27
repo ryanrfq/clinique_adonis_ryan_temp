@@ -1,0 +1,1160 @@
+{
+	"info": {
+		"_postman_id": "c948f16c-73c9-4d52-95d2-792cd1d4d6f3",
+		"name": "Bootcamp Clinique",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5527004"
+	},
+	"item": [
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "GET employee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/employees",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET employee/id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/employees/29722285-69b4-419a-9c06-69fd7cfe41a1",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"employees",
+								"29722285-69b4-419a-9c06-69fd7cfe41a1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ano Nymous\",\r\n    \"username\": \"anonymous_Se\",\r\n    \"password\": \"12121212\",\r\n    \"password_confirmation\": \"12121212\",\r\n    \"nik\": \"3509201201360001\",\r\n    \"role\": \"pharmacy\",\r\n    \"join_date\": \"2023-01-19\",\r\n    \"phone_number\": \"0812345678\",\r\n    \"address\": \"internet\",\r\n    \"email\": \"anonymouse@mail4.com\",\r\n    \"specialization\": \"none\",\r\n    \"gender\": \"M\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE employee",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nik\": \"1234567890123455\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/employees/cb5eb441-5499-42a5-b28c-bcefd00cf2fb",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"employees",
+								"cb5eb441-5499-42a5-b28c-bcefd00cf2fb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE employee",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/employees/cb5eb441-5499-42a5-b28c-bcefd00cf2fa",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"employees",
+								"cb5eb441-5499-42a5-b28c-bcefd00cf2fa"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Doctor",
+			"item": [
+				{
+					"name": "GET /doctors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/doctors",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /doctors",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employee_id\": \"29722285-69b4-419a-9c06-69fd7cfe41a1\",\r\n    \"license_number\": \"512.322/IV/IP.OD/2020\",\r\n    \"specialization\": \"organ dalam\",\r\n    \"fee\": 250000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/doctors",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /doctors/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/doctors/f3af78dd-7274-4e1e-b0b3-4790c8626e34",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"doctors",
+								"f3af78dd-7274-4e1e-b0b3-4790c8626e34"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /doctors/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"specialization\": \"umum\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/doctors/ab83ee9e-a18a-4243-82e8-7887383eef95",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"doctors",
+								"ab83ee9e-a18a-4243-82e8-7887383eef95"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /doctors/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/doctors/ab83ee9e-a18a-4243-82e8-7887383eef95",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"doctors",
+								"ab83ee9e-a18a-4243-82e8-7887383eef95"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clinics",
+			"item": [
+				{
+					"name": "GET /clinics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/clinics",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"clinics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /clinics/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/clinics/0bd2b0bd-b954-4401-952b-20486dd9ee3d",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"clinics",
+								"0bd2b0bd-b954-4401-952b-20486dd9ee3d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /clinics",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor_id\": \"0e71c48e-d67c-475f-aaca-f7388b536c74\",\r\n    \"name\": \"ora umum\",\r\n    \"room\": \"Z99\",\r\n    \"daily_quota\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/clinics",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"clinics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /clinics/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"daily_quota\": 5000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/clinics/76754394-a2ef-491e-a398-60bb67bdd050",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"clinics",
+								"76754394-a2ef-491e-a398-60bb67bdd050"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /clinics/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/clinics/ab505b79-151c-494c-ac05-557e2efbf0e1",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"clinics",
+								"ab505b79-151c-494c-ac05-557e2efbf0e1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pharmacists",
+			"item": [
+				{
+					"name": "GET /pharmacists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/pharmacists",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"pharmacists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /pharmacists/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3333/pharmacists/5bd42249-0e55-4d12-a515-3458abd043bc",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"pharmacists",
+								"5bd42249-0e55-4d12-a515-3458abd043bc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /pharmacists",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employee_id\": \"108be98c-5095-4a28-a68c-a2246b482e9b\",\r\n    \"license_number\": \"10.921/III/IP.AP/2008\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/pharmacists",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"pharmacists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /pharmacists/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"license_number\": \"aaiiuueeoo121332\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/pharmacists/08c3c116-ce25-4a1f-8901-b61a0c222b6a",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"pharmacists",
+								"08c3c116-ce25-4a1f-8901-b61a0c222b6a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /pharmacists/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"license_number\": \"10.921/III/IP.AP/2019\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3333/pharmacists/8e67ae9d-67a7-4f42-a7cc-12472ff9258c",
+							"host": [
+								"localhost"
+							],
+							"port": "3333",
+							"path": [
+								"pharmacists",
+								"8e67ae9d-67a7-4f42-a7cc-12472ff9258c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patients",
+			"item": [
+				{
+					"name": "GET /patients/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patients/23da15bb-f9c2-40b1-a572-ec2f33729683",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"23da15bb-f9c2-40b1-a572-ec2f33729683"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /patients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patients",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /patients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"regist_by\": \"b67ec0df-fc40-435b-8f42-236131d6a4ec\",\r\n    \"status\": \"lajang\",\r\n    \"gender\": \"M\",\r\n    \"address\": \"internet\",\r\n    \"phone\": \"08971128581\",\r\n    \"birthday\": \"2001-06-13T17:00:00.000Z\",\r\n    \"email\": \"anon@mail.com\",\r\n    \"name\": \"Anon Name\",\r\n    \"username\": \"anonaono\",\r\n    \"password\": \"Dsd95s5NLf\",\r\n    \"register_date\": \"2023-02-17T01:45:01.000Z\",\r\n    \"nik\": \"3326162801070002\",\r\n    \"is_verified\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/patients",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /patients/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"is_verified\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/patients/be09d0ec-260b-4212-a0b6-8dcc6532639d",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"be09d0ec-260b-4212-a0b6-8dcc6532639d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /patients",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patients/be09d0ec-260b-4212-a0b6-8dcc6532639d",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"be09d0ec-260b-4212-a0b6-8dcc6532639d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Registration Queue",
+			"item": [
+				{
+					"name": "GET /registration_queues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/registration-queues",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"registration-queues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /registration_queues/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/registration-queues/6e09e0cd-0447-4f6a-b913-50b52bad9e2b",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"registration-queues",
+								"6e09e0cd-0447-4f6a-b913-50b52bad9e2b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /registration_queues",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clinic_id\": \"0bd2b0bd-b954-4401-952b-20486dd9ee3d\",\r\n    \"time\": \"2022-05-01 06:01:11\",\r\n    \"status\": \"new\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/registration-queues",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"registration-queues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /registration_queues/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"registered\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/registration-queues/c0d89343-b386-4066-b83d-141a053db451",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"registration-queues",
+								"c0d89343-b386-4066-b83d-141a053db451"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /registration_queues/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/registration_queues/c73e5648-5187-4402-9382-4741e941acb5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"registration_queues",
+								"c73e5648-5187-4402-9382-4741e941acb5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clinic Queue",
+			"item": [
+				{
+					"name": "GET /clinic_queues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/clinics/88bcf42d-9878-444d-b334-0dc1a7025714/clinic-queues",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinics",
+								"88bcf42d-9878-444d-b334-0dc1a7025714",
+								"clinic-queues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /clinic_queues/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/clinic-queues/a2890018-ef17-4e5d-a7dc-ff2f35c3fbfe",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinic-queues",
+								"a2890018-ef17-4e5d-a7dc-ff2f35c3fbfe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /clinic_queues",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"registration_id\": \"c0d89343-b386-4066-b83d-141a053db451\",\r\n    \"patient_id\": \"8254404c-3bcc-42d1-9caa-84d07cee2755\",\r\n    \"status\": \"registered\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/clinics/88bcf42d-9878-444d-b334-0dc1a7025714/clinic-queues",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinics",
+								"88bcf42d-9878-444d-b334-0dc1a7025714",
+								"clinic-queues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /clinic_queues/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"new\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/clinic-queues/45a88f4e-4db6-4e27-aab5-ae62845e2d62",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinic-queues",
+								"45a88f4e-4db6-4e27-aab5-ae62845e2d62"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /clinic_queues/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/clinic_queues/fa664c8f-8b22-419a-a8e3-c7253c0ffc88",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"clinic_queues",
+								"fa664c8f-8b22-419a-a8e3-c7253c0ffc88"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medical Record",
+			"item": [
+				{
+					"name": "GET /patients/:id/medical_records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patients/23da15bb-f9c2-40b1-a572-ec2f33729683/medical-records",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"23da15bb-f9c2-40b1-a572-ec2f33729683",
+								"medical-records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /medical_records/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/medical-records/b0684b06-b0d2-4c44-bce8-34420356759a",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"medical-records",
+								"b0684b06-b0d2-4c44-bce8-34420356759a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /medical_records",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor_id\": \"ac4bebaa-7e34-453f-80ab-38d6348d5dc9\",\r\n    \"complaint\": \"kontrol kawat gigi\",\r\n    \"diagnosis\": \"gigi bergeser ke posisi yang semestinya\",\r\n    \"time\": \"2022-07-11 10:28:07\",\r\n    \"treatment\": \"penyesuaian posisi kawat gigi\",\r\n    \"weight\": 74,\r\n    \"blood_pressure\": \"120/80\",\r\n    \"notes\": \"tidak ada\",\r\n    \"prescription\": \"tidak ada\",\r\n    \"created_at\": null,\r\n    \"updated_at\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/patients/23da15bb-f9c2-40b1-a572-ec2f33729683/medical-records",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"23da15bb-f9c2-40b1-a572-ec2f33729683",
+								"medical-records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /medical_records/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"weight\": 66\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/medical-records/b0684b06-b0d2-4c44-bce8-34420356759a",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"medical-records",
+								"b0684b06-b0d2-4c44-bce8-34420356759a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /medical_records/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/medical-records/6008175c-0963-4077-8afb-838eb5362467",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"medical-records",
+								"6008175c-0963-4077-8afb-838eb5362467"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "GET /transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/transactions",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /transactions/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/transactions/1917b1da-867f-4ee3-a202-ff2b5965d8f4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"1917b1da-867f-4ee3-a202-ff2b5965d8f4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /transactions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clinic_queue_id\": \"5be35dbf-1693-44d5-8766-bb61a04ac2e1\",\r\n    \"medical_record_id\": \"b0684b06-b0d2-4c44-bce8-34420356759a\",\r\n    \"total_cost\": 250000,\r\n    \"status\": \"unpaid\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /transactions/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"paid\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions/e79c8b0e-f907-4c1b-9de4-bbe7fcccf2d5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"e79c8b0e-f907-4c1b-9de4-bbe7fcccf2d5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /transactions/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/transactions/77e64bdb-6570-405b-8621-7f0460353a68",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"77e64bdb-6570-405b-8621-7f0460353a68"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction Detail",
+			"item": [
+				{
+					"name": "GET /transaction_details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/transaction/8b8ba516-0a27-40f4-ab1a-31e64262e8d2/transaction-details",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transaction",
+								"8b8ba516-0a27-40f4-ab1a-31e64262e8d2",
+								"transaction-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /transaction_details/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/transaction-details/deabde67-5b5f-4091-bfc8-a8238b214d04",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transaction-details",
+								"deabde67-5b5f-4091-bfc8-a8238b214d04"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /transaction_details",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item\": \"checkup fee\",\r\n    \"cost\": 250000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transaction/8b8ba516-0a27-40f4-ab1a-31e61262e8d2/transaction-details",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transaction",
+								"8b8ba516-0a27-40f4-ab1a-31e61262e8d2",
+								"transaction-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT /transaction_details/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transaction-details/deabde67-5b5f-4091-bfc8-a8238b214d04",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transaction-details",
+								"deabde67-5b5f-4091-bfc8-a8238b214d04"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /transaction_details/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/transaction_details/1c8f4674-53ed-44a1-9539-30b3b942f9c3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transaction_details",
+								"1c8f4674-53ed-44a1-9539-30b3b942f9c3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
