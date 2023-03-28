@@ -6,11 +6,12 @@ import { v4 as uuidv4 } from "uuid";
 
 export default class ClinicsController {
   public async index({ response }: HttpContextContract) {
-    const data = await Clinic.query().preload("doctor", (doctorQuery) => {
-      doctorQuery.preload("employee", (employeeQuery) => {
-        employeeQuery.select("name");
-      })
-    }).preload("clinicQueues")
+    const data = await Clinic.query()
+      .preload("doctor", (doctorQuery) => {
+        doctorQuery.preload("employee", (employeeQuery) => {
+          employeeQuery.select("name");
+        })
+      }).preload("clinicQueues")
       .withAggregate('clinicQueues', cq => cq.count('*').as('cq_count'))
 
     response.ok({

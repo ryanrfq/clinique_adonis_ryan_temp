@@ -17,9 +17,11 @@ export default class RegistrationQueuesController {
   // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
+    // TODO: buat logika auto increment untuk nomor antrian
     const payload = await request.validate(CreateRegistrationQueueValidator);
     const newRecord = await RegistrationQueue.create({
       id: uuidv4(),
+      queueNumber: 1, // ... sementara seperti ini
       ...payload,
     });
 
@@ -46,6 +48,8 @@ export default class RegistrationQueuesController {
   // public async edit({}: HttpContextContract) {}
 
   public async update({ params, request, response }: HttpContextContract) {
+    // TODO: validasi supaya tidak menerima request body berupa nomor antrian
+    // jika terjadi kesalahan dalam antrian dsb, silakan ambil nomor antrian baru trims
     const { id } = params;
     const payload = await request.validate(UpdateRegistrationQueueValidator);
 

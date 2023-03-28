@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from "@ioc:Adonis/Lucid/Orm";
 import Employee from "./Employee";
+import MedicalRecord from "./MedicalRecord";
 
 export default class Patient extends BaseModel {
   @column({ isPrimary: true })
@@ -49,6 +50,9 @@ export default class Patient extends BaseModel {
 
   @column()
   public isVerified: boolean;
+
+  @hasMany(() => MedicalRecord)
+  public medicalRecord: HasMany<typeof MedicalRecord>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;

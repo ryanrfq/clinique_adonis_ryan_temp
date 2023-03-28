@@ -23,8 +23,9 @@ export default class MedicalRecordsController {
           "register_date",
           "nik",
           "is_verified"
-        );
-      });
+        )
+      })
+      .preload("doctor")
 
     response.ok({
       message: "Berhasil mengambil data semua rekam medik",
@@ -68,8 +69,9 @@ export default class MedicalRecordsController {
           "register_date",
           "nik",
           "is_verified"
-        );
+        )
       })
+      .preload("doctor")
       .firstOrFail();
 
     response.ok({

@@ -1,12 +1,13 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import ClinicQueue from './ClinicQueue'
 import MedicalRecord from './MedicalRecord'
+import TransactionDetail from './TransactionDetail'
 
 export default class Transaction extends BaseModel {
   @column({ isPrimary: true })
   public id: string
-  
+
   @column()
   public clinicQueueId: string
 
@@ -18,13 +19,16 @@ export default class Transaction extends BaseModel {
 
   @belongsTo(() => MedicalRecord)
   public medicalRecord: BelongsTo<typeof MedicalRecord>
-  
+
   @column()
   public totalCost: number
 
   @column()
   public status: string
-  
+
+  @hasMany(() => TransactionDetail)
+  public transactionDetail: HasMany<typeof TransactionDetail>
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

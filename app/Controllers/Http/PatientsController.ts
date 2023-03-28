@@ -6,7 +6,9 @@ import { v4 as uuidv4 } from "uuid";
 
 export default class PatientsController {
   public async index({ response }: HttpContextContract) {
-    const data = await Patient.query().preload("employee");
+    const data = await Patient.query()
+      .preload("employee")
+      .preload("medicalRecord")
 
     response.ok({
       message: "Berhasil mengambil data semua pasien",
@@ -36,6 +38,7 @@ export default class PatientsController {
     const selectedData = await Patient.query()
       .where("id", id)
       .preload("employee")
+      .preload("medicalRecord")
       .firstOrFail();
 
     response.ok({

@@ -1,4 +1,5 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
+import { Gender, PatientStatus } from "Contracts/enums";
 
 export default class extends BaseSchema {
   protected tableName = "patients";
@@ -11,8 +12,8 @@ export default class extends BaseSchema {
         .references("employees.id")
         .onUpdate("cascade")
         .onDelete("cascade");
-      table.enum("status", ["menikah", "lajang"]);
-      table.enum("gender", ["M", "F"]);
+      table.enum("status", Object.values(PatientStatus));
+      table.enum("gender", Object.values(Gender));
       table.text("address");
       table.text("phone");
       table.date("birthday");

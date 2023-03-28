@@ -4,7 +4,7 @@ import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 export default class extends BaseSeeder {
   public static environment = ['development', 'testing']
 
-  public async run () {
+  public async run() {
     console.log("====== BEGIN Seeding Table: Doctor ======");
 
     await Database.table("doctors").multiInsert([
@@ -25,16 +25,23 @@ export default class extends BaseSeeder {
       {
         id: "013f68ea-1de4-4e56-ad67-8187865cef59",
         employee_id: "e3012e0e-e924-4788-85e5-aaa4c7566c71",
-        license_number: "443.123/II/IP.DU/2020",
-        specialization: "umum",
+        license_number: "443.123/II/IP.GI/2020",
+        specialization: "anak",
         fee: 150000,
       },
       {
         id: "c295b8b3-50f1-41e8-94c4-93f2f9e91879",
         employee_id: "48a48bf5-e33d-4383-9e86-48dc18cd564a",
         license_number: "321.435/II/IP.DU/2020",
-        specialization: "gigi",
+        specialization: "ortopedi",
         fee: 150000,
+      },
+      {
+        id: "ea206d18-6bbe-48a8-9fbb-0f1ebc76bfda",
+        employee_id: "b67ec0df-fc40-435b-8f42-236131d6a4ec",
+        license_number: "111.222/III/IP.DU/2019",
+        specialization: "umum",
+        fee: 160000,
       },
     ]);
 

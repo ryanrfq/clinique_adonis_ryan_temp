@@ -6,9 +6,12 @@ import { v4 as uuidv4 } from "uuid";
 
 export default class TransactionsController {
   public async index({ response }: HttpContextContract) {
-    const data = await Transaction.query().preload("medicalRecord", (mdQuery) =>
-      mdQuery.preload("patient")
-    );
+    const data = await Transaction.query()
+      .preload("medicalRecord", (mdQuery) =>
+        mdQuery.preload("patient")
+      )
+      .preload("clinicQueue")
+      .preload("transactionDetail")
 
     response.ok({
       message: "Berhasil mengambil data semua transaksi",
@@ -19,7 +22,6 @@ export default class TransactionsController {
   // public async create({}: HttpContextContract) {}
 
   public async store({ request, response }: HttpContextContract) {
-    // const newObj = request.body();
     const payload = await request.validate(CreateTransactionValidator);
 
     const newRecord = await Transaction.create({
@@ -39,6 +41,8 @@ export default class TransactionsController {
     const selectedData = await Transaction.query()
       .where("id", id)
       .preload("medicalRecord", (mdQuery) => mdQuery.preload("patient"))
+      .preload("clinicQueue")
+      .preload("transactionDetail")
       .firstOrFail();
 
     response.ok({

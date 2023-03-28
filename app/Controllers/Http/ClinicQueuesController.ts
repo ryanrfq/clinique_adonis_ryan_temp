@@ -10,7 +10,8 @@ export default class PatientsController {
     const data = await ClinicQueue.query()
       .where("clinic_id", clinic_id)
       .preload("registrationQueue")
-      .preload("clinic");
+      .preload("clinic")
+      .preload("patient")
 
     response.ok({
       message: "Berhasil mengambil data semua antrian klinik",
@@ -43,6 +44,7 @@ export default class PatientsController {
       .where("id", id)
       .preload("registrationQueue")
       .preload("clinic")
+      .preload("patient")
       .firstOrFail();
 
     response.ok({

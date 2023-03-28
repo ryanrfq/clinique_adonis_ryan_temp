@@ -12,6 +12,9 @@ export default class RegistrationQueue extends BaseModel {
   @belongsTo(() => Clinic)
   public clinic: BelongsTo<typeof Clinic>
 
+  @column()
+  public queueNumber: number
+
   @column.dateTime()
   public time: DateTime
 

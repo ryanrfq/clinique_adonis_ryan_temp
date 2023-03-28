@@ -5,7 +5,18 @@ export enum Gender {
 
 export enum Role {
   DOCTOR = "doctor",
-  EMPLOYEE = "employee",
   PHARMACY = "pharmacy",
   ADMIN = "admin",
+  PATIENT = "patient"
+}
+
+export enum PatientStatus {
+  MENIKAH = "menikah",
+  LAJANG = "lajang"
+}
+
+export enum RegQueueStatus {
+  NEW = 'new',
+  REGISTERED = 'registered',
+  BAIL = 'bail'
 }
