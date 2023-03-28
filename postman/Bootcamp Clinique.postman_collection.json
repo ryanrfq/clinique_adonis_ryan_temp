@@ -27,19 +27,18 @@
 					"response": []
 				},
 				{
-					"name": "GET employee/id",
+					"name": "GET employee/:id",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3333/employees/29722285-69b4-419a-9c06-69fd7cfe41a1",
+							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"employees",
-								"29722285-69b4-419a-9c06-69fd7cfe41a1"
+								"{{EMPLOYEE_ID}}"
 							]
 						}
 					},
@@ -60,11 +59,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3333/employees",
+							"raw": "{{URL}}/employees",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"employees"
 							]
@@ -87,14 +85,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3333/employees/cb5eb441-5499-42a5-b28c-bcefd00cf2fb",
+							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"employees",
-								"cb5eb441-5499-42a5-b28c-bcefd00cf2fb"
+								"{{EMPLOYEE_ID}}"
 							]
 						}
 					},
@@ -106,18 +103,37 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3333/employees/cb5eb441-5499-42a5-b28c-bcefd00cf2fa",
+							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"employees",
-								"cb5eb441-5499-42a5-b28c-bcefd00cf2fa"
+								"{{EMPLOYEE_ID}}"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -130,11 +146,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3333/doctors",
+							"raw": "{{URL}}/doctors",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"doctors"
 							]
@@ -157,11 +172,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3333/doctors",
+							"raw": "{{URL}}/doctors",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"doctors"
 							]
@@ -175,14 +189,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3333/doctors/f3af78dd-7274-4e1e-b0b3-4790c8626e34",
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"doctors",
-								"f3af78dd-7274-4e1e-b0b3-4790c8626e34"
+								"{{DOCTOR_ID}}"
 							]
 						}
 					},
@@ -195,7 +208,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"specialization\": \"umum\"\r\n}",
+							"raw": "{\r\n    \"fee\": 160000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -203,14 +216,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3333/doctors/ab83ee9e-a18a-4243-82e8-7887383eef95",
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"doctors",
-								"ab83ee9e-a18a-4243-82e8-7887383eef95"
+								"{{DOCTOR_ID}}"
 							]
 						}
 					},
@@ -222,14 +234,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3333/doctors/ab83ee9e-a18a-4243-82e8-7887383eef95",
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"doctors",
-								"ab83ee9e-a18a-4243-82e8-7887383eef95"
+								"{{DOCTOR_ID}}"
 							]
 						}
 					},
@@ -246,11 +257,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3333/clinics",
+							"raw": "{{URL}}/clinics",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"clinics"
 							]
@@ -264,14 +274,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3333/clinics/0bd2b0bd-b954-4401-952b-20486dd9ee3d",
+							"raw": "{{URL}}/clinics/{{CLINIC_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"clinics",
-								"0bd2b0bd-b954-4401-952b-20486dd9ee3d"
+								"{{CLINIC_ID}}"
 							]
 						}
 					},
@@ -284,7 +293,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"doctor_id\": \"0e71c48e-d67c-475f-aaca-f7388b536c74\",\r\n    \"name\": \"ora umum\",\r\n    \"room\": \"Z99\",\r\n    \"daily_quota\": 1000\r\n}",
+							"raw": "{\r\n    \"doctor_id\": \"ea206d18-6bbe-48a8-9fbb-0f1ebc76bfda\",\r\n    \"name\": \"tidak umum\",\r\n    \"room\": \"Z99\",\r\n    \"daily_quota\": 1000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -292,15 +301,15 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3333/clinics",
+							"raw": "{{URL}}/clinics",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"clinics"
 							]
-						}
+						},
+						"description": "Gunakan doctor_id dibawah untuk request body nya. Semua dokter yang lain sudah direferensi di tabel klinik, dan satu klinik unik untuk satu dokter.\n\n``` json\n\"doctor_id\": \"ea206d18-6bbe-48a8-9fbb-0f1ebc76bfda\",\n\n```"
 					},
 					"response": []
 				},
@@ -319,14 +328,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3333/clinics/76754394-a2ef-491e-a398-60bb67bdd050",
+							"raw": "{{URL}}/clinics/{{CLINIC_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"clinics",
-								"76754394-a2ef-491e-a398-60bb67bdd050"
+								"{{CLINIC_ID}}"
 							]
 						}
 					},
@@ -338,14 +346,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3333/clinics/ab505b79-151c-494c-ac05-557e2efbf0e1",
+							"raw": "{{URL}}/clinics/{{CLINIC_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"clinics",
-								"ab505b79-151c-494c-ac05-557e2efbf0e1"
+								"{{CLINIC_ID}}"
 							]
 						}
 					},
@@ -362,11 +369,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3333/pharmacists",
+							"raw": "{{URL}}/pharmacists",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"pharmacists"
 							]
@@ -380,14 +386,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3333/pharmacists/5bd42249-0e55-4d12-a515-3458abd043bc",
+							"raw": "{{URL}}/pharmacists/{{PHARMACIST_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"pharmacists",
-								"5bd42249-0e55-4d12-a515-3458abd043bc"
+								"{{PHARMACIST_ID}}"
 							]
 						}
 					},
@@ -400,7 +405,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"employee_id\": \"108be98c-5095-4a28-a68c-a2246b482e9b\",\r\n    \"license_number\": \"10.921/III/IP.AP/2008\"\r\n}",
+							"raw": "{\r\n    \"employee_id\": \"181786b6-cf6f-4c6f-9f16-e99c50bb6df8\",\r\n    \"license_number\": \"10.921/III/IP.AP/2008\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -416,7 +421,8 @@
 							"path": [
 								"pharmacists"
 							]
-						}
+						},
+						"description": "Gunakan\n\n``` json\n\"employee_id\": \"181786b6-cf6f-4c6f-9f16-e99c50bb6df8\"\n\n```\n\nGunakan employee_id ini untuk request bodynya. Employee lainnya dengan role pharmacist sudah di assign disini."
 					},
 					"response": []
 				},
@@ -435,14 +441,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3333/pharmacists/08c3c116-ce25-4a1f-8901-b61a0c222b6a",
+							"raw": "{{URL}}/pharmacists/{{PHARMACIST_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"pharmacists",
-								"08c3c116-ce25-4a1f-8901-b61a0c222b6a"
+								"{{PHARMACIST_ID}}"
 							]
 						}
 					},
@@ -463,14 +468,13 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3333/pharmacists/8e67ae9d-67a7-4f42-a7cc-12472ff9258c",
+							"raw": "{{URL}}/pharmacists/{{PHARMACIST_ID}}",
 							"host": [
-								"localhost"
+								"{{URL}}"
 							],
-							"port": "3333",
 							"path": [
 								"pharmacists",
-								"8e67ae9d-67a7-4f42-a7cc-12472ff9258c"
+								"{{PHARMACIST_ID}}"
 							]
 						}
 					},
@@ -487,13 +491,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/patients/23da15bb-f9c2-40b1-a572-ec2f33729683",
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"patients",
-								"23da15bb-f9c2-40b1-a572-ec2f33729683"
+								"{{PATIENT_ID}}"
 							]
 						}
 					},
@@ -523,7 +527,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"regist_by\": \"b67ec0df-fc40-435b-8f42-236131d6a4ec\",\r\n    \"status\": \"lajang\",\r\n    \"gender\": \"M\",\r\n    \"address\": \"internet\",\r\n    \"phone\": \"08971128581\",\r\n    \"birthday\": \"2001-06-13T17:00:00.000Z\",\r\n    \"email\": \"anon@mail.com\",\r\n    \"name\": \"Anon Name\",\r\n    \"username\": \"anonaono\",\r\n    \"password\": \"Dsd95s5NLf\",\r\n    \"register_date\": \"2023-02-17T01:45:01.000Z\",\r\n    \"nik\": \"3326162801070002\",\r\n    \"is_verified\": false\r\n}",
+							"raw": "{\r\n    \"regist_by\": \"b67ec0df-fc40-435b-8f42-236131d6a4ec\",\r\n    \"status\": \"lajang\",\r\n    \"gender\": \"M\",\r\n    \"address\": \"internet\",\r\n    \"phone\": \"08971128581\",\r\n    \"birthday\": \"2001-06-13\",\r\n    \"email\": \"anon@mail.com\",\r\n    \"name\": \"Anon Name\",\r\n    \"username\": \"anonaono\",\r\n    \"password\": \"Dsd95s5NLf\",\r\n    \"password_confirmation\": \"Dsd95s5NLf\",\r\n    \"register_date\": \"2023-02-17 01:45:01\",\r\n    \"nik\": \"3326162801070002\",\r\n    \"is_verified\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -557,13 +561,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/patients/be09d0ec-260b-4212-a0b6-8dcc6532639d",
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"patients",
-								"be09d0ec-260b-4212-a0b6-8dcc6532639d"
+								"{{PATIENT_ID}}"
 							]
 						}
 					},
@@ -575,13 +579,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/patients/be09d0ec-260b-4212-a0b6-8dcc6532639d",
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"patients",
-								"be09d0ec-260b-4212-a0b6-8dcc6532639d"
+								"{{PATIENT_ID}}"
 							]
 						}
 					},
@@ -615,13 +619,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/registration-queues/6e09e0cd-0447-4f6a-b913-50b52bad9e2b",
+							"raw": "{{URL}}/registration-queues/{{REGISTRATION_QUEUE_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"registration-queues",
-								"6e09e0cd-0447-4f6a-b913-50b52bad9e2b"
+								"{{REGISTRATION_QUEUE_ID}}"
 							]
 						}
 					},
@@ -660,7 +664,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"status\": \"registered\"\r\n}",
+							"raw": "{\r\n    \"status\": \"bail\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -668,13 +672,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/registration-queues/c0d89343-b386-4066-b83d-141a053db451",
+							"raw": "{{URL}}/registration-queues/{{REGISTRATION_QUEUE_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"registration-queues",
-								"c0d89343-b386-4066-b83d-141a053db451"
+								"{{REGISTRATION_QUEUE_ID}}"
 							]
 						}
 					},
@@ -686,13 +690,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/registration_queues/c73e5648-5187-4402-9382-4741e941acb5",
+							"raw": "{{URL}}/registration-queues/{{REGISTRATION_QUEUE_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"registration_queues",
-								"c73e5648-5187-4402-9382-4741e941acb5"
+								"registration-queues",
+								"{{REGISTRATION_QUEUE_ID}}"
 							]
 						}
 					},
@@ -709,13 +713,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/clinics/88bcf42d-9878-444d-b334-0dc1a7025714/clinic-queues",
+							"raw": "{{URL}}/clinics/{{CLINIC_ID}}/clinic-queues",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"clinics",
-								"88bcf42d-9878-444d-b334-0dc1a7025714",
+								"{{CLINIC_ID}}",
 								"clinic-queues"
 							]
 						}
@@ -728,13 +732,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/clinic-queues/a2890018-ef17-4e5d-a7dc-ff2f35c3fbfe",
+							"raw": "{{URL}}/clinic-queues/{{CLINIC_QUEUE_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"clinic-queues",
-								"a2890018-ef17-4e5d-a7dc-ff2f35c3fbfe"
+								"{{CLINIC_QUEUE_ID}}"
 							]
 						}
 					},
@@ -747,7 +751,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"registration_id\": \"c0d89343-b386-4066-b83d-141a053db451\",\r\n    \"patient_id\": \"8254404c-3bcc-42d1-9caa-84d07cee2755\",\r\n    \"status\": \"registered\"\r\n}",
+							"raw": "{\r\n    \"registration_id\": \"c1380d9c-eda8-4715-9ba8-5553afc959e2\",\r\n    \"patient_id\": \"8254404c-3bcc-42d1-9caa-84d07cee2755\",\r\n    \"status\": \"registered\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -755,13 +759,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/clinics/88bcf42d-9878-444d-b334-0dc1a7025714/clinic-queues",
+							"raw": "{{URL}}/clinics/{{CLINIC_ID}}/clinic-queues",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"clinics",
-								"88bcf42d-9878-444d-b334-0dc1a7025714",
+								"{{CLINIC_ID}}",
 								"clinic-queues"
 							]
 						}
@@ -783,13 +787,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/clinic-queues/45a88f4e-4db6-4e27-aab5-ae62845e2d62",
+							"raw": "{{URL}}/clinic-queues/{{CLINIC_QUEUE_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"clinic-queues",
-								"45a88f4e-4db6-4e27-aab5-ae62845e2d62"
+								"{{CLINIC_QUEUE_ID}}"
 							]
 						}
 					},
@@ -801,13 +805,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/clinic_queues/fa664c8f-8b22-419a-a8e3-c7253c0ffc88",
+							"raw": "{{URL}}/clinic-queues/{{CLINIC_QUEUE_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"clinic_queues",
-								"fa664c8f-8b22-419a-a8e3-c7253c0ffc88"
+								"clinic-queues",
+								"{{CLINIC_QUEUE_ID}}"
 							]
 						}
 					},
@@ -824,13 +828,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/patients/23da15bb-f9c2-40b1-a572-ec2f33729683/medical-records",
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}/medical-records",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"patients",
-								"23da15bb-f9c2-40b1-a572-ec2f33729683",
+								"{{PATIENT_ID}}",
 								"medical-records"
 							]
 						}
@@ -843,13 +847,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/medical-records/b0684b06-b0d2-4c44-bce8-34420356759a",
+							"raw": "{{URL}}/medical-records/{{MEDICAL_RECORD_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"medical-records",
-								"b0684b06-b0d2-4c44-bce8-34420356759a"
+								"{{MEDICAL_RECORD_ID}}"
 							]
 						}
 					},
@@ -870,13 +874,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/patients/23da15bb-f9c2-40b1-a572-ec2f33729683/medical-records",
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}/medical-records",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"patients",
-								"23da15bb-f9c2-40b1-a572-ec2f33729683",
+								"{{PATIENT_ID}}",
 								"medical-records"
 							]
 						}
@@ -898,13 +902,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/medical-records/b0684b06-b0d2-4c44-bce8-34420356759a",
+							"raw": "{{URL}}/medical-records/{{MEDICAL_RECORD_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"medical-records",
-								"b0684b06-b0d2-4c44-bce8-34420356759a"
+								"{{MEDICAL_RECORD_ID}}"
 							]
 						}
 					},
@@ -916,13 +920,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/medical-records/6008175c-0963-4077-8afb-838eb5362467",
+							"raw": "{{URL}}/medical-records/{{MEDICAL_RECORD_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"medical-records",
-								"6008175c-0963-4077-8afb-838eb5362467"
+								"{{MEDICAL_RECORD_ID}}"
 							]
 						}
 					},
@@ -956,13 +960,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/transactions/1917b1da-867f-4ee3-a202-ff2b5965d8f4",
+							"raw": "{{URL}}/transactions/{{TRANSACTION_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transactions",
-								"1917b1da-867f-4ee3-a202-ff2b5965d8f4"
+								"{{TRANSACTION_ID}}"
 							]
 						}
 					},
@@ -1009,13 +1013,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/transactions/e79c8b0e-f907-4c1b-9de4-bbe7fcccf2d5",
+							"raw": "{{URL}}/transactions/{{TRANSACTION_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transactions",
-								"e79c8b0e-f907-4c1b-9de4-bbe7fcccf2d5"
+								"{{TRANSACTION_ID}}"
 							]
 						}
 					},
@@ -1027,13 +1031,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/transactions/77e64bdb-6570-405b-8621-7f0460353a68",
+							"raw": "{{URL}}/transactions/{{TRANSACTION_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transactions",
-								"77e64bdb-6570-405b-8621-7f0460353a68"
+								"{{TRANSACTION_ID}}"
 							]
 						}
 					},
@@ -1050,13 +1054,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/transaction/8b8ba516-0a27-40f4-ab1a-31e64262e8d2/transaction-details",
+							"raw": "{{URL}}/transaction/{{TRANSACTION_ID}}/transaction-details",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transaction",
-								"8b8ba516-0a27-40f4-ab1a-31e64262e8d2",
+								"{{TRANSACTION_ID}}",
 								"transaction-details"
 							]
 						}
@@ -1069,13 +1073,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/transaction-details/deabde67-5b5f-4091-bfc8-a8238b214d04",
+							"raw": "{{URL}}/transaction-details/{{TRANSACTION_DETAIL_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transaction-details",
-								"deabde67-5b5f-4091-bfc8-a8238b214d04"
+								"{{TRANSACTION_DETAIL_ID}}"
 							]
 						}
 					},
@@ -1096,13 +1100,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/transaction/8b8ba516-0a27-40f4-ab1a-31e61262e8d2/transaction-details",
+							"raw": "{{URL}}/transaction/{{TRANSACTION_ID}}/transaction-details",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transaction",
-								"8b8ba516-0a27-40f4-ab1a-31e61262e8d2",
+								"{{TRANSACTION_ID}}",
 								"transaction-details"
 							]
 						}
@@ -1116,7 +1120,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\r\n}",
+							"raw": "{\r\n    \"cost\": 150000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1124,13 +1128,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/transaction-details/deabde67-5b5f-4091-bfc8-a8238b214d04",
+							"raw": "{{URL}}/transaction-details/{{TRANSACTION_DETAIL_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"transaction-details",
-								"deabde67-5b5f-4091-bfc8-a8238b214d04"
+								"{{TRANSACTION_DETAIL_ID}}"
 							]
 						}
 					},
@@ -1142,19 +1146,151 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/transaction_details/1c8f4674-53ed-44a1-9539-30b3b942f9c3",
+							"raw": "{{URL}}/transaction-details/{{TRANSACTION_DETAIL_ID}}",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"transaction_details",
-								"1c8f4674-53ed-44a1-9539-30b3b942f9c3"
+								"transaction-details",
+								"{{TRANSACTION_DETAIL_ID}}"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"employee_id\": \"29722285-69b4-419a-9c06-69fd7cfe41a1\",\r\n    \"email\": \"anon@mail.com\",\r\n    \"password\": \"supermn\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "```\n// login admin\n{\n    \"email\": \"anon@mail.com\",\n    \"password\": \"supermn\"\n}\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "change password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"b2c31caa-2f06-4b8d-bc80-49e620916a13\",\r\n    \"password_new\": \"undestruct\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/change-password",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"anon@mail.com\",\r\n    \"password\": \"supermn\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "``` json\n// login admin\n{\n    \"email\": \"anon@mail.com\",\n    \"password\": \"supermn\"\n}\n// login pharmacy\n{\n    \"email\": \"nahuman@mail.com\",\n    \"password\": \"jfaGXcjM5\"\n}\n// login doctor\n{\n    \"email\": \"galihlazdy@mail.com\",\n    \"password\": \"RBb6gBgnF\"\n}\n\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/logout",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{BEARER_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
