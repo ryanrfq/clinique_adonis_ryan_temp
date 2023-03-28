@@ -28,5 +28,6 @@ export default class IndexSeeder extends BaseSeeder {
     await this.runSeeder(await import('../SeederMedicalRecord'))
     await this.runSeeder(await import('../SeederTransaction'))
     await this.runSeeder(await import('../SeederTransactionDetail'))
+    await this.runSeeder(await import('../SeederUser'))
   }
 }

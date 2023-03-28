@@ -1,40 +1,91 @@
-/*
-|--------------------------------------------------------------------------
-| Routes
-|--------------------------------------------------------------------------
-|
-| This file is dedicated for defining HTTP routes. A single file is enough
-| for majority of projects, however you can define routes in different
-| files and just make sure to import them inside this file. For example
-|
-| Define routes in following two files
-| ├── start/routes/cart.ts
-| ├── start/routes/customer.ts
-|
-| and then import them inside `start/routes.ts` as follows
-|
-| import './routes/cart'
-| import './routes/customer'
-|
-*/
-
 import Route from "@ioc:Adonis/Core/Route";
+import { Role } from "Contracts/enums";
+
 Route.group(() => {
     Route.resource("/employees", "EmployeesController").apiOnly()
+        .middleware({
+            'index': `checkRole:${Object.values(Role)}`,
+            'show': `checkRole:${Object.values(Role)}`,
+            'store': 'checkRole:admin,doctor',
+            'update': 'checkRole:admin,doctor',
+            'destroy': 'checkRole:admin',
+        })
     Route.resource("/doctors", "DoctorsController").apiOnly()
+        .middleware({
+            'index': `checkRole:${Object.values(Role)}`,
+            'show': `checkRole:${Object.values(Role)}`,
+            'store': 'checkRole:admin,doctor',
+            'update': 'checkRole:admin,doctor',
+            'destroy': 'checkRole:admin',
+        })
     Route.resource("/pharmacists", "PharmacistsController").apiOnly()
+        .middleware({
+            'index': `checkRole:${Object.values(Role)}`,
+            'show': `checkRole:${Object.values(Role)}`,
+            'store': 'checkRole:admin,pharmacy',
+            'update': 'checkRole:admin,pharmacy',
+            'destroy': 'checkRole:admin',
+        })
     Route.resource("/patients", "PatientsController").apiOnly()
+        .middleware({
+            'index': `checkRole:${Object.values(Role)}`,
+            'show': `checkRole:${Object.values(Role)}`,
+            'store': 'checkRole:admin,doctor',
+            'update': 'checkRole:admin,doctor',
+            'destroy': 'checkRole:admin',
+        })
     Route.shallowResource("patients.medical-records", "MedicalRecordsController").apiOnly()
+        .middleware({
+            'index': `checkRole:${Object.values(Role)}`,
+            'show': `checkRole:${Object.values(Role)}`,
+            'store': 'checkRole:admin,doctor',
+            'update': 'checkRole:admin,doctor',
+            'destroy': 'checkRole:admin',
+        })
     Route.resource("/clinics", "ClinicsController").apiOnly()
+        .middleware({
+            'index': `checkRole:${Object.values(Role)}`,
+            'show': `checkRole:${Object.values(Role)}`,
+            'store': 'checkRole:admin,doctor',
+            'update': 'checkRole:admin,doctor',
+            'destroy': 'checkRole:admin',
+        })
     Route.shallowResource("clinics.clinic-queues", "ClinicQueuesController").apiOnly()
+        .middleware({
+            'index': `checkRole:${Object.values(Role)}`,
+            'show': `checkRole:${Object.values(Role)}`,
+            'store': 'checkRole:admin,doctor',
+            'update': 'checkRole:admin,doctor',
+            'destroy': 'checkRole:admin',
+        })
     Route.resource("/registration-queues", "RegistrationQueuesController").apiOnly()
+        .middleware({
+            'index': `checkRole:${Object.values(Role)}`,
+            'show': `checkRole:${Object.values(Role)}`,
+            'store': 'checkRole:admin,doctor',
+            'update': 'checkRole:admin,doctor',
+            'destroy': 'checkRole:admin',
+        })
     Route.resource("/transactions", "TransactionsController").apiOnly()
+        .middleware({
+            'index': `checkRole:${Object.values(Role)}`,
+            'show': `checkRole:${Object.values(Role)}`,
+            'store': 'checkRole:admin,doctor',
+            'update': 'checkRole:admin,doctor',
+            'destroy': 'checkRole:admin',
+        })
     Route.shallowResource("transaction.transaction-details", "TransactionDetailsController").apiOnly()
+        .middleware({
+            'index': `checkRole:${Object.values(Role)}`,
+            'show': `checkRole:${Object.values(Role)}`,
+            'store': 'checkRole:admin,doctor',
+            'update': 'checkRole:admin,doctor',
+            'destroy': 'checkRole:admin',
+        })
 
-    Route.post('/change-password', 'AuthController.changePassword')
-    Route.post('/logout', 'AuthController.logout')
+    Route.post('/change-password', 'AuthController.changePassword').middleware('checkRole:admin')
+    Route.post('/logout', 'AuthController.logout').middleware('checkRole:admin,doctor,pharmacy')
 }).middleware(['auth'])
-
 
 Route.post('/register', 'AuthController.register')
 Route.post('/login', 'AuthController.login')
