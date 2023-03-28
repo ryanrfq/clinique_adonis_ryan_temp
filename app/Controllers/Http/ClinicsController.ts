@@ -9,8 +9,9 @@ export default class ClinicsController {
     const data = await Clinic.query().preload("doctor", (doctorQuery) => {
       doctorQuery.preload("employee", (employeeQuery) => {
         employeeQuery.select("name");
-      });
-    });
+      })
+    }).preload("clinicQueues")
+      .withAggregate('clinicQueues', cq => cq.count('*').as('cq_count'))
 
     response.ok({
       message: "Berhasil mengambil data semua klinik",

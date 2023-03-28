@@ -8,10 +8,12 @@ export default class ClinicQueue extends BaseModel {
   @column({ isPrimary: true })
   public id: string;
 
-  @column({ columnName: "registration_id" })
-  public registrationQueueId: string;
+  @column()
+  public registrationId: string;
 
-  @belongsTo(() => RegistrationQueue)
+  @belongsTo(() => RegistrationQueue, {
+    foreignKey: "registrationId"
+  })
   public registrationQueue: BelongsTo<typeof RegistrationQueue>;
 
   @column()
