@@ -4,7 +4,7 @@ import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 export default class extends BaseSeeder {
   public static environment = ['development', 'testing']
 
-  public async run () {
+  public async run() {
     console.log("====== BEGIN Seeding Table: clinic_queues ======");
 
     await Database.table("clinic_queues").multiInsert([
@@ -35,13 +35,6 @@ export default class extends BaseSeeder {
         clinic_id: "111f8e21-131c-4de7-aca3-9b4978a3dae1",
         patient_id: "5c36ab9a-db1a-4aee-9f41-44bf7c850b35",
         status: "registered",
-      },
-      {
-        id: "a2890018-ef17-4e5d-a7dc-ff2f35c3fbfe",
-        registration_id: "6e09e0cd-0447-4f6a-b913-50b52bad9e2b",
-        clinic_id: "0bd2b0bd-b954-4401-952b-20486dd9ee3d",
-        patient_id: "23da15bb-f9c2-40b1-a572-ec2f33729683",
-        status: "bail",
       },
     ]);
 
