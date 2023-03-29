@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeCreate, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Clinic from './Clinic'
+import { v4 as uuidv4 } from "uuid";
 
 export default class RegistrationQueue extends BaseModel {
   @column({ isPrimary: true })
@@ -26,4 +27,9 @@ export default class RegistrationQueue extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @beforeCreate()
+  public static async newId(rq: RegistrationQueue) {
+    rq.id = uuidv4()
+  }
 }

@@ -2,7 +2,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import RegistrationQueue from "App/Models/RegistrationQueue";
 import CreateRegistrationQueueValidator from "App/Validators/CreateRegistrationQueueValidator";
 import UpdateRegistrationQueueValidator from "App/Validators/UpdateRegistrationQueueValidator";
-import { v4 as uuidv4 } from "uuid";
 
 export default class RegistrationQueuesController {
   public async index({ response }: HttpContextContract) {
@@ -20,7 +19,6 @@ export default class RegistrationQueuesController {
     // TODO: buat logika auto increment untuk nomor antrian
     const payload = await request.validate(CreateRegistrationQueueValidator);
     const newRecord = await RegistrationQueue.create({
-      id: uuidv4(),
       queueNumber: 1, // ... sementara seperti ini
       ...payload,
     });

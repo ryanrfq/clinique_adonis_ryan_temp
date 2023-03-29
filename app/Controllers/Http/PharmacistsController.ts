@@ -2,7 +2,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Pharmacist from "App/Models/Pharmacist";
 import CreatePharmacistValidator from "App/Validators/CreatePharmacistValidator";
 import UpdatePharmacistValidator from "App/Validators/UpdatePharmacistValidator";
-import { v4 as uuidv4 } from "uuid";
 
 export default class PharmacistsController {
   public async index({ response }: HttpContextContract) {
@@ -24,9 +23,9 @@ export default class PharmacistsController {
   public async store({ request, response }: HttpContextContract) {
     const payload = await request.validate(CreatePharmacistValidator);
     const newRecord = await Pharmacist.create({
-      id: uuidv4(),
-      ...payload,
-    });
+      employeeId: payload.employee_id,
+      licenseNumber: payload.license_number
+    })
 
     response.created({
       message: "Berhasil menyimpan data apoteker",

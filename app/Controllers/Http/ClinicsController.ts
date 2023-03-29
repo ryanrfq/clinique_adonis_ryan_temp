@@ -2,7 +2,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Clinic from "App/Models/Clinic";
 import CreateClinicValidator from "App/Validators/CreateClinicValidator";
 import UpdateClinicValidator from "App/Validators/UpdateClinicValidator";
-import { v4 as uuidv4 } from "uuid";
 
 export default class ClinicsController {
   public async index({ response }: HttpContextContract) {
@@ -24,11 +23,7 @@ export default class ClinicsController {
 
   public async store({ request, response }: HttpContextContract) {
     const payload = await request.validate(CreateClinicValidator);
-
-    const newRecord = await Clinic.create({
-      id: uuidv4(),
-      ...payload,
-    });
+    const newRecord = await Clinic.create(payload)
 
     response.created({
       message: "Berhasil menyimpan data klinik",

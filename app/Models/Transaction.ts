@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeCreate, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import ClinicQueue from './ClinicQueue'
 import MedicalRecord from './MedicalRecord'
 import TransactionDetail from './TransactionDetail'
+import { v4 as uuidv4 } from "uuid";
 
 export default class Transaction extends BaseModel {
   @column({ isPrimary: true })
@@ -34,4 +35,9 @@ export default class Transaction extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @beforeCreate()
+  public static async newId(transaction: Transaction) {
+    transaction.id = uuidv4()
+  }
 }

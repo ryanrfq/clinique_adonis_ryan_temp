@@ -2,7 +2,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import MedicalRecord from "App/Models/MedicalRecord";
 import CreateMedicalRecordValidator from "App/Validators/CreateMedicalRecordValidator";
 import UpdateMedicalRecordValidator from "App/Validators/UpdateMedicalRecordValidator";
-import { v4 as uuidv4 } from "uuid";
 
 export default class MedicalRecordsController {
   public async index({ response, params }: HttpContextContract) {
@@ -39,7 +38,6 @@ export default class MedicalRecordsController {
     const { patient_id } = params; // <- apakah ini perlu di validasi?
     const payload = await request.validate(CreateMedicalRecordValidator);
     const newRecord = await MedicalRecord.create({
-      id: uuidv4(),
       patientId: patient_id,
       ...payload,
     });

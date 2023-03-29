@@ -2,7 +2,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import ClinicQueue from "App/Models/ClinicQueue";
 import CreateClinicQueueValidator from "App/Validators/CreateClinicQueueValidator";
 import UpdateClinicQueueValidator from "App/Validators/UpdateClinicQueueValidator";
-import { v4 as uuidv4 } from "uuid";
 
 export default class PatientsController {
   public async index({ response, params }: HttpContextContract) {
@@ -26,7 +25,6 @@ export default class PatientsController {
     const payload = await request.validate(CreateClinicQueueValidator);
 
     const newRecord = await ClinicQueue.create({
-      id: uuidv4(),
       clinicId: clinic_id,
       ...payload,
     });

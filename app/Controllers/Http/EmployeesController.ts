@@ -2,7 +2,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Employee from "App/Models/Employee";
 import CreateEmployeeValidator from "App/Validators/CreateEmployeeValidator";
 import UpdateEmployeeValidator from "App/Validators/UpdateEmployeeValidator";
-import { v4 as uuidv4 } from "uuid";
 
 export default class EmployeesController {
   public async index({ response }: HttpContextContract) {
@@ -30,10 +29,7 @@ export default class EmployeesController {
 
   public async store({ request, response }: HttpContextContract) {
     const payload = await request.validate(CreateEmployeeValidator);
-    const newRecord = await Employee.create({
-      id: uuidv4(),
-      ...payload,
-    });
+    const newRecord = await Employee.create(payload);
 
     response.created({
       message: "Berhasil menyimpan data karyawan",

@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, beforeCreate, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Doctor from './Doctor'
 import Patient from './Patient'
+import { v4 as uuidv4 } from "uuid";
 
 export default class MedicalRecord extends BaseModel {
   @column({ isPrimary: true })
@@ -18,7 +19,7 @@ export default class MedicalRecord extends BaseModel {
 
   @belongsTo(() => Patient)
   public patient: BelongsTo<typeof Patient>
-  
+
   @column()
   public complaint: string
 
@@ -48,4 +49,9 @@ export default class MedicalRecord extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @beforeCreate()
+  public static async newId(medRec: MedicalRecord) {
+    medRec.id = uuidv4()
+  }
 }

@@ -2,7 +2,6 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Transaction from "App/Models/Transaction";
 import CreateTransactionValidator from "App/Validators/CreateTransactionValidator";
 import UpdateTransactionValidator from "App/Validators/UpdateTransactionValidator";
-import { v4 as uuidv4 } from "uuid";
 
 export default class TransactionsController {
   public async index({ response }: HttpContextContract) {
@@ -23,11 +22,7 @@ export default class TransactionsController {
 
   public async store({ request, response }: HttpContextContract) {
     const payload = await request.validate(CreateTransactionValidator);
-
-    const newRecord = await Transaction.create({
-      id: uuidv4(),
-      ...payload,
-    });
+    const newRecord = await Transaction.create(payload)
 
     response.created({
       message: "Berhasil menyimpan data transaksi",
