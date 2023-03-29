@@ -11,6 +11,7 @@ export default class TransactionsController {
       )
       .preload("clinicQueue")
       .preload("transactionDetail")
+      .withAggregate('transactionDetail', td => td.count('*').as('td_count'))
 
     response.ok({
       message: "Berhasil mengambil data semua transaksi",
@@ -38,6 +39,7 @@ export default class TransactionsController {
       .preload("medicalRecord", (mdQuery) => mdQuery.preload("patient"))
       .preload("clinicQueue")
       .preload("transactionDetail")
+      .withAggregate('transactionDetail', td => td.count('*').as('td_count'))
       .firstOrFail();
 
     response.ok({

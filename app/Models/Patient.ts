@@ -5,6 +5,12 @@ import MedicalRecord from "./MedicalRecord";
 import { v4 as uuidv4 } from "uuid";
 
 export default class Patient extends BaseModel {
+  public serializeExtras() {
+    return {
+      total_medical_records: this.$extras.mr_count
+    }
+  }
+
   @column({ isPrimary: true })
   public id: string;
 

@@ -6,6 +6,12 @@ import TransactionDetail from './TransactionDetail'
 import { v4 as uuidv4 } from "uuid";
 
 export default class Transaction extends BaseModel {
+  public serializeExtras() {
+    return {
+      total_transaction_detail: this.$extras.td_count
+    }
+  }
+
   @column({ isPrimary: true })
   public id: string
 

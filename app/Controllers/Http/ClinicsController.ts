@@ -10,7 +10,8 @@ export default class ClinicsController {
         doctorQuery.preload("employee", (employeeQuery) => {
           employeeQuery.select("name");
         })
-      }).preload("clinicQueues")
+      })
+      .preload("clinicQueues")
       .withAggregate('clinicQueues', cq => cq.count('*').as('cq_count'))
 
     response.ok({
@@ -41,6 +42,8 @@ export default class ClinicsController {
           employeeQuery.select("name");
         });
       })
+      .preload('clinicQueues')
+      .withAggregate('clinicQueues', cq => cq.count('*').as('cq_count'))
       .firstOrFail();
 
     response.ok({

@@ -8,6 +8,9 @@ export default class PatientsController {
     const data = await Patient.query()
       .preload("employee")
       .preload("medicalRecord")
+      .withAggregate('medicalRecord', mr => {
+        mr.count('*').as('mr_count')
+      })
 
     response.ok({
       message: "Berhasil mengambil data semua pasien",
@@ -34,7 +37,10 @@ export default class PatientsController {
       .where("id", id)
       .preload("employee")
       .preload("medicalRecord")
-      .firstOrFail();
+      .withAggregate('medicalRecord', mr => {
+        mr.count('*').as('mr_count')
+      })
+      .firstOrFail()
 
     response.ok({
       message: "Berhasil mengambil data pasien",
