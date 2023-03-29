@@ -1,8 +1,9 @@
 import { schema, rules, CustomMessages } from "@ioc:Adonis/Core/Validator";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { ClinicQueueStatus } from "Contracts/enums";
 
 export default class UpdateClinicQueueValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
   public schema = schema.create({
     registration_id: schema.string.optional({ trim: true }, [
@@ -15,7 +16,7 @@ export default class UpdateClinicQueueValidator {
       rules.uuid({ version: 4 }),
       rules.exists({ table: "patients", column: "id" }),
     ]),
-    status: schema.enum.optional(["new", "registered", "bail"]),
+    status: schema.enum.optional(Object.values(ClinicQueueStatus)),
   });
 
   public messages: CustomMessages = {};

@@ -1,5 +1,6 @@
 import { schema, rules, CustomMessages } from "@ioc:Adonis/Core/Validator";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { RegQueueStatus } from "Contracts/enums";
 
 export default class CreateRegistrationQueueValidator {
   constructor(protected ctx: HttpContextContract) { }
@@ -11,7 +12,7 @@ export default class CreateRegistrationQueueValidator {
     ]),
     // queueNumber: schema.number(),
     time: schema.date({ format: "yyyy-MM-dd HH:mm:ss" }),
-    status: schema.enum(["new", "registered", "bail"]),
+    status: schema.enum(Object.values(RegQueueStatus)),
   });
 
   public messages: CustomMessages = {};

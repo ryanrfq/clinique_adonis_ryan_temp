@@ -1,8 +1,9 @@
 import { schema, rules, CustomMessages } from "@ioc:Adonis/Core/Validator";
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { Gender, Role } from "Contracts/enums";
 
 export default class UpdateEmployeeValidator {
-  constructor(protected ctx: HttpContextContract) {}
+  constructor(protected ctx: HttpContextContract) { }
 
   public schema = schema.create({
     name: schema.string.optional({ trim: true, escape: true }, [
@@ -24,7 +25,7 @@ export default class UpdateEmployeeValidator {
       rules.maxLength(16),
       rules.unique({ table: "employees", column: "nik" }),
     ]),
-    role: schema.enum.optional(["admin", "doctor", "pharmacy", "employee"]),
+    role: schema.enum.optional(Object.values(Role)),
     join_date: schema.date.optional({ format: "yyyy-MM-dd" }),
     phone_number: schema.string.optional({ trim: true }, [
       rules.regex(new RegExp("^[0-9]+$")),
@@ -37,7 +38,7 @@ export default class UpdateEmployeeValidator {
       rules.unique({ table: "employees", column: "email" }),
     ]),
     specialization: schema.string.nullableAndOptional({ trim: true }),
-    gender: schema.enum.optional(["M", "F"]),
+    gender: schema.enum.optional(Object.values(Gender)),
   });
 
   public messages: CustomMessages = {};

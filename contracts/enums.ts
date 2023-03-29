@@ -20,3 +20,14 @@ export enum RegQueueStatus {
   REGISTERED = 'registered',
   BAIL = 'bail'
 }
+
+export enum ClinicQueueStatus {
+  REGISTERED = 'registered',
+  DONE = 'done',
+  BAIL = 'bail'
+}
+
+export enum TransactionStatus {
+  PAID = 'paid',
+  UNPAID = 'unpaid'
+}

@@ -1,15 +1,16 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
+import { TransactionStatus } from 'Contracts/enums'
 
 export default class extends BaseSchema {
   protected tableName = 'transactions'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary().notNullable()
       table.uuid('clinic_queue_id').references('clinic_queues.id').onUpdate('cascade').onDelete('cascade')
       table.uuid('medical_record_id').references('medical_records.id').onUpdate('cascade').onDelete('cascade')
       table.float('total_cost')
-      table.enum('status', ['paid', 'unpaid'])
+      table.enum('status', Object.values(TransactionStatus))
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
@@ -20,7 +21,7 @@ export default class extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }
