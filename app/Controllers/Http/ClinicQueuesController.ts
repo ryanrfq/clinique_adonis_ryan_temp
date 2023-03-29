@@ -1,4 +1,5 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import Clinic from "App/Models/Clinic";
 import ClinicQueue from "App/Models/ClinicQueue";
 import CreateClinicQueueValidator from "App/Validators/CreateClinicQueueValidator";
 import UpdateClinicQueueValidator from "App/Validators/UpdateClinicQueueValidator";
@@ -6,8 +7,8 @@ import UpdateClinicQueueValidator from "App/Validators/UpdateClinicQueueValidato
 export default class PatientsController {
   public async index({ response, params }: HttpContextContract) {
     const { clinic_id } = params;
-    const data = await ClinicQueue.query()
-      .where("clinic_id", clinic_id)
+    const clinicData = await Clinic.findOrFail(clinic_id)
+    const data = await clinicData.related('clinicQueues').query()
       .preload("registrationQueue")
       .preload("clinic")
       .preload("patient")
@@ -22,6 +23,8 @@ export default class PatientsController {
 
   public async store({ request, response, params }: HttpContextContract) {
     const { clinic_id } = params;
+    await Clinic.findOrFail(clinic_id)
+
     const payload = await request.validate(CreateClinicQueueValidator);
 
     const newRecord = await ClinicQueue.create({

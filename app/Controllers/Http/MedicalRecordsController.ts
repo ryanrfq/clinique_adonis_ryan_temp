@@ -1,13 +1,14 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import MedicalRecord from "App/Models/MedicalRecord";
+import Patient from "App/Models/Patient";
 import CreateMedicalRecordValidator from "App/Validators/CreateMedicalRecordValidator";
 import UpdateMedicalRecordValidator from "App/Validators/UpdateMedicalRecordValidator";
 
 export default class MedicalRecordsController {
   public async index({ response, params }: HttpContextContract) {
     const { patient_id } = params;
-    const data = await MedicalRecord.query()
-      .where("patient_id", patient_id)
+    const patientData = await Patient.findOrFail(patient_id)
+    const data = await patientData.related('medicalRecord').query()
       .preload("patient", (patientQuery) => {
         patientQuery.select(
           "id",
@@ -35,8 +36,11 @@ export default class MedicalRecordsController {
   // public async create({}: HttpContextContract) {}
 
   public async store({ request, response, params }: HttpContextContract) {
-    const { patient_id } = params; // <- apakah ini perlu di validasi?
+    const { patient_id } = params;
+    await Patient.findOrFail(patient_id)
+
     const payload = await request.validate(CreateMedicalRecordValidator);
+
     const newRecord = await MedicalRecord.create({
       patientId: patient_id,
       ...payload,
