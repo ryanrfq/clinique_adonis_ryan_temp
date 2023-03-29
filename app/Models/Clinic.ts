@@ -30,7 +30,7 @@ export default class Clinic extends BaseModel {
   public room: string
 
   @column()
-  public daily_quota: number
+  public dailyQuota: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
