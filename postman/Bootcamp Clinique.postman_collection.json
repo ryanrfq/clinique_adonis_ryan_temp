@@ -98,6 +98,35 @@
 					"response": []
 				},
 				{
+					"name": "POST image-upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Primality/Downloads/162070226578815499/162070226578815499/7a3194271872d95f6e1c13690463d4a1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}/image-upload",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors",
+								"{{DOCTOR_ID}}",
+								"image-upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "DELETE employee",
 					"request": {
 						"method": "DELETE",
@@ -223,6 +252,35 @@
 							"path": [
 								"doctors",
 								"{{DOCTOR_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST image-upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Primality/Downloads/162070226578815499/162070226578815499/7a3194271872d95f6e1c13690463d4a1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}/image-upload",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors",
+								"{{DOCTOR_ID}}",
+								"image-upload"
 							]
 						}
 					},
@@ -486,6 +544,23 @@
 			"name": "Patients",
 			"item": [
 				{
+					"name": "GET /patients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patients",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GET /patients/:id",
 					"request": {
 						"method": "GET",
@@ -498,23 +573,6 @@
 							"path": [
 								"patients",
 								"{{PATIENT_ID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET /patients",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/patients",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"patients"
 							]
 						}
 					},
@@ -568,6 +626,35 @@
 							"path": [
 								"patients",
 								"{{PATIENT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST image-upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Primality/Downloads/162070226578815499/162070226578815499/7a3194271872d95f6e1c13690463d4a1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}/image-upload",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"doctors",
+								"{{DOCTOR_ID}}",
+								"image-upload"
 							]
 						}
 					},
@@ -751,7 +838,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"registration_id\": \"c1380d9c-eda8-4715-9ba8-5553afc959e2\",\r\n    \"patient_id\": \"8254404c-3bcc-42d1-9caa-84d07cee2755\",\r\n    \"status\": \"registered\"\r\n}",
+							"raw": "{\r\n    \"registration_id\": \"6e09e0cd-0447-4f6a-b913-50b52bad9e2b\",\r\n    \"patient_id\": \"8254404c-3bcc-42d1-9caa-84d07cee2755\",\r\n    \"status\": \"registered\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -779,7 +866,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"status\": \"new\"\r\n}",
+							"raw": "{\r\n    \"status\": \"bail\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -866,7 +953,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"doctor_id\": \"ac4bebaa-7e34-453f-80ab-38d6348d5dc9\",\r\n    \"complaint\": \"kontrol kawat gigi\",\r\n    \"diagnosis\": \"gigi bergeser ke posisi yang semestinya\",\r\n    \"time\": \"2022-07-11 10:28:07\",\r\n    \"treatment\": \"penyesuaian posisi kawat gigi\",\r\n    \"weight\": 74,\r\n    \"blood_pressure\": \"120/80\",\r\n    \"notes\": \"tidak ada\",\r\n    \"prescription\": \"tidak ada\",\r\n    \"created_at\": null,\r\n    \"updated_at\": null\r\n}",
+							"raw": "{\r\n    \"doctor_id\": \"ac4bebaa-7e34-453f-80ab-38d6348d5dc9\",\r\n    \"complaint\": \"gigi terasa ngilu saat makan makanan manis atau dingin\",\r\n    \"diagnosis\": \"gigi berlubang :O\",\r\n    \"time\": \"2022-07-11 10:28:07\",\r\n    \"treatment\": \"cabut gigi >:)\",\r\n    \"weight\": 74,\r\n    \"blood_pressure\": \"120/80\",\r\n    \"notes\": \"tidak ada\",\r\n    \"prescription\": \"tidak ada\",\r\n    \"created_at\": null,\r\n    \"updated_at\": null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1170,7 +1257,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"employee_id\": \"29722285-69b4-419a-9c06-69fd7cfe41a1\",\r\n    \"email\": \"anon@mail.com\",\r\n    \"password\": \"supermn\"\r\n}",
+							"raw": "{\r\n    \"employee_id\": \"e3012e0e-e924-4788-85e5-aaa4c7566c71\",\r\n    \"email\": \"gordonfreeman@blackmesa.org\",\r\n    \"password\": \"wheresmyhelmet\",\r\n    \"password_confirmation\": \"wheresmyhelmet\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1197,7 +1284,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"b2c31caa-2f06-4b8d-bc80-49e620916a13\",\r\n    \"password_new\": \"undestruct\"\r\n}",
+							"raw": "{\r\n    \"id\": \"ce9c4d59-498e-497d-a18f-20356f42696f\",\r\n    \"password_new\": \"hahahe\",\r\n    \"password_new_confirmation\": \"hahahe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1246,7 +1333,7 @@
 				{
 					"name": "logout",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"url": {
 							"raw": "{{URL}}/logout",
