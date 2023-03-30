@@ -20,7 +20,7 @@ export default class extends BaseSeeder {
         doctor_id: "ac4bebaa-7e34-453f-80ab-38d6348d5dc9",
         name: "gigi",
         room: "B01",
-        daily_quota: 50,
+        daily_quota: 2,
       },
       {
         id: "0bd2b0bd-b954-4401-952b-20486dd9ee3d",
