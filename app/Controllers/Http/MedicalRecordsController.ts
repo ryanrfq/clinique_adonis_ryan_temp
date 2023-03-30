@@ -7,25 +7,16 @@ import UpdateMedicalRecordValidator from "App/Validators/UpdateMedicalRecordVali
 export default class MedicalRecordsController {
   public async index({ response, params }: HttpContextContract) {
     const { patient_id } = params;
-    const patientData = await Patient.findOrFail(patient_id)
-    const data = await patientData.related('medicalRecord').query()
-      .preload("patient", (patientQuery) => {
-        patientQuery.select(
-          "id",
-          "regist_by",
-          "status",
-          "gender",
-          "address",
-          "phone",
-          "birthday",
-          "email",
-          "name",
-          "register_date",
-          "nik",
-          "is_verified"
-        )
+    const data = await Patient.query()
+      .select(
+        "id", "regist_by", "status", "gender", "address", "phone",
+        "birthday", "email", "name", "register_date", "nik", "is_verified"
+      )
+      .preload('medicalRecord', mrq => {
+        mrq.preload('doctor')
       })
-      .preload("doctor")
+      .where('id', patient_id)
+      .firstOrFail()
 
     response.ok({
       message: "Berhasil mengambil data semua rekam medik",

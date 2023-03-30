@@ -3,15 +3,16 @@ import Clinic from "App/Models/Clinic";
 import ClinicQueue from "App/Models/ClinicQueue";
 import CreateClinicQueueValidator from "App/Validators/CreateClinicQueueValidator";
 import UpdateClinicQueueValidator from "App/Validators/UpdateClinicQueueValidator";
-import { DateTime } from "luxon";
 export default class ClinicQueuesController {
   public async index({ response, params }: HttpContextContract) {
     const { clinic_id } = params;
-    const clinicData = await Clinic.findOrFail(clinic_id)
-    const data = await clinicData.related('clinicQueues').query()
-      .preload("registrationQueue")
-      .preload("clinic")
-      .preload("patient")
+    const data = await Clinic.query()
+      .preload('clinicQueues', cq => {
+        cq.preload("registrationQueue")
+          .preload("patient")
+      })
+      .where('id', clinic_id)
+      .firstOrFail()
 
     response.ok({
       message: "Berhasil mengambil data semua antrian klinik",
@@ -28,7 +29,7 @@ export default class ClinicQueuesController {
     const clinic = await Clinic.query()
       .withCount('clinicQueues', (query) => {
         query.as('total_queue_today')
-        query.whereRaw(`created_at::date = '${DateTime.now().toFormat("yyyy-MM-dd")}'::date`)
+        query.whereRaw('created_at::date = CURRENT_DATE')
       })
       .where('id', clinic_id)
       .firstOrFail()

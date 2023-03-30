@@ -9,11 +9,11 @@ export default class TransactionDetailsController {
   public async index({ response, params }: HttpContextContract) {
     const { transaction_id } = params;
 
-    const transactionData = await Transaction.findOrFail(transaction_id)
-    const data = await transactionData.related('transactionDetail').query()
-      .preload("transaction", (transactionQuery) => {
-        transactionQuery.preload("medicalRecord")
-      });
+    const data = await Transaction.query()
+      .where('id', transaction_id)
+      .preload('transactionDetail')
+      .preload('medicalRecord')
+      .firstOrFail()
 
     response.ok({
       message: "Berhasil mengambil data semua detail transaksi",
