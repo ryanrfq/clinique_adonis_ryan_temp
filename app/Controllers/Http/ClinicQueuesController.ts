@@ -3,8 +3,8 @@ import Clinic from "App/Models/Clinic";
 import ClinicQueue from "App/Models/ClinicQueue";
 import CreateClinicQueueValidator from "App/Validators/CreateClinicQueueValidator";
 import UpdateClinicQueueValidator from "App/Validators/UpdateClinicQueueValidator";
-
-export default class PatientsController {
+import { DateTime } from "luxon";
+export default class ClinicQueuesController {
   public async index({ response, params }: HttpContextContract) {
     const { clinic_id } = params;
     const clinicData = await Clinic.findOrFail(clinic_id)
@@ -24,6 +24,18 @@ export default class PatientsController {
   public async store({ request, response, params }: HttpContextContract) {
     const { clinic_id } = params;
     await Clinic.findOrFail(clinic_id)
+
+    const clinic = await Clinic.query()
+      .withCount('clinicQueues', (query) => {
+        query.as('total_queue_today')
+        query.whereRaw(`created_at::date = '${DateTime.now().toFormat("yyyy-MM-dd")}'::date`)
+      })
+      .where('id', clinic_id)
+      .firstOrFail()
+
+    if (clinic.$extras.total_queue_today >= clinic.dailyQuota) {
+      return response.badRequest({ message: "Daily quota exceeded" })
+    }
 
     const payload = await request.validate(CreateClinicQueueValidator);
 
