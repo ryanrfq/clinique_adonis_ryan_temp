@@ -2,6 +2,8 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Patient from "App/Models/Patient";
 import CreatePatientValidator from "App/Validators/CreatePatientValidator";
 import UpdatePatientValidator from "App/Validators/UpdatePatientValidator";
+import UploadImagePatientValidator from "App/Validators/UploadImagePatientValidator";
+import Drive from '@ioc:Adonis/Core/Drive'
 
 export default class PatientsController {
   public async index({ response }: HttpContextContract) {
@@ -67,6 +69,26 @@ export default class PatientsController {
       message: "Berhasil mengubah data pasien",
       data: data,
     });
+  }
+
+  public async imageUpload({ request, response, params }: HttpContextContract) {
+    const { id } = params
+    const payload = await request.validate(UploadImagePatientValidator)
+    const data = await Patient.findOrFail(id)
+    const imageName = `patient_${id}.${payload.image.extname}`
+
+    await payload.image.moveToDisk('patients', { name: imageName, overwrite: true })
+
+    const beHost = "localhost:3333"
+    const imageUrl = beHost + await Drive.getUrl('patients/' + imageName)
+
+    await data.merge({ imageId: imageName }).save()
+
+    response.ok({
+      message: "Upload Success",
+      data,
+      image_url: imageUrl
+    })
   }
 
   public async destroy({ params, response }: HttpContextContract) {

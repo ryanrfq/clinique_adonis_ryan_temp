@@ -2,7 +2,8 @@ import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import Doctor from "App/Models/Doctor";
 import CreateDoctorValidator from "App/Validators/CreateDoctorValidator";
 import UpdateDoctorValidator from "App/Validators/UpdateDoctorValidator";
-
+import UploadImageDoctorValidator from "App/Validators/UploadImageDoctorValidator";
+import Drive from '@ioc:Adonis/Core/Drive'
 export default class DoctorsController {
   public async index({ response }: HttpContextContract) {
     const data = await Doctor.query().preload("employee", (employeeQuery) => {
@@ -25,6 +26,26 @@ export default class DoctorsController {
       message: "berhasil menyimpan data dokter",
       data: newRecord,
     });
+  }
+
+  public async imageUpload({ request, response, params }: HttpContextContract) {
+    const { id } = params
+    const payload = await request.validate(UploadImageDoctorValidator)
+    const data = await Doctor.findOrFail(id)
+    const imageName = `doctor_${id}.${payload.image.extname}`
+
+    await payload.image.moveToDisk('doctors', { name: imageName, overwrite: true })
+
+    const beHost = "localhost:3333"
+    const imageUrl = beHost + await Drive.getUrl('doctors/' + imageName)
+
+    await data.merge({ imageId: imageName }).save()
+
+    response.ok({
+      message: "Upload Success",
+      data,
+      image_url: imageUrl
+    })
   }
 
   public async show({ params, response }: HttpContextContract) {

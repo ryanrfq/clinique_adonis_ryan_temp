@@ -10,6 +10,7 @@ Route.group(() => {
             'update': 'checkRole:admin,doctor',
             'destroy': 'checkRole:admin',
         })
+    Route.post("/employees/:id/image-upload", "EmployeesController.imageUpload").middleware('checkRole:admin,doctor,pharmacy')
     Route.resource("/doctors", "DoctorsController").apiOnly()
         .middleware({
             'index': `checkRole:${Object.values(Role)}`,
@@ -18,6 +19,7 @@ Route.group(() => {
             'update': 'checkRole:admin,doctor',
             'destroy': 'checkRole:admin',
         })
+    Route.post("/doctors/:id/image-upload", "DoctorsController.imageUpload").middleware('checkRole:admin,doctor')
     Route.resource("/pharmacists", "PharmacistsController").apiOnly()
         .middleware({
             'index': `checkRole:${Object.values(Role)}`,
@@ -34,6 +36,7 @@ Route.group(() => {
             'update': 'checkRole:admin,doctor',
             'destroy': 'checkRole:admin',
         })
+    Route.post("/patients/:id/image-upload", "PatientsController.imageUpload").middleware('checkRole:admin,doctor,patient')
     Route.shallowResource("patients.medical-records", "MedicalRecordsController").apiOnly()
         .middleware({
             'index': `checkRole:${Object.values(Role)}`,

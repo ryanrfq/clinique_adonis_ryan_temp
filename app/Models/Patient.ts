@@ -58,6 +58,9 @@ export default class Patient extends BaseModel {
   @column()
   public isVerified: boolean;
 
+  @column()
+  public imageId: string;
+
   @hasMany(() => MedicalRecord)
   public medicalRecord: HasMany<typeof MedicalRecord>
 

@@ -37,7 +37,10 @@ export default class Employee extends BaseModel {
   public specialization: string | null;
 
   @column()
-  public gender: string;
+  public gender: string
+
+  @column()
+  public imageId: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
