@@ -8,10 +8,13 @@ import LoginUserValidator from 'App/Validators/LoginUserValidator'
 import { UserRole } from 'Contracts/enums'
 
 export default class AuthController {
-    public async register({ request, response }: HttpContextContract) {
+    public async registerEmployee({ request, response }: HttpContextContract) {
         const payload = await request.validate(CreateUserValidator)
 
-        const data = await User.create(payload)
+        const data = await User.create({
+            ...payload,
+            role: UserRole.EMPLOYEE
+        })
 
         response.created({
             message: "User registered successfully",
@@ -61,14 +64,16 @@ export default class AuthController {
         })
     }
 
-    public async changePassword({ request, response }: HttpContextContract) {
+    public async changePassword({ request, response, auth }: HttpContextContract) {
         const payload = await request.validate(ChangePasswordUserValidator)
 
         // todo (optional): coba validasi dengan cek password lama
         // await auth.use('api').verifyCredentials(email, password)
         // const checkPassword = User.query()
 
-        const data = await User.findOrFail(payload.id)
+        const data = await User.query()
+            .where('id', auth.user!.id)
+            .firstOrFail()
         await data.merge({ password: payload.password_new }).save()
 
         response.created({

@@ -11,7 +11,7 @@ export default class MedicalRecordsController {
     const data = await Patient.query()
       .select(
         "id", "regist_by", "status", "gender", "address", "phone",
-        "birthday", "email", "name", "register_date", "nik", "is_verified"
+        "birthday", "name", "register_date", "nik", "is_verified"
       )
       .preload('medicalRecord', mrq => {
         mrq.preload('doctor')
@@ -52,7 +52,7 @@ export default class MedicalRecordsController {
       .preload("patient", (patientQuery) => {
         patientQuery.select(
           "id", "regist_by", "status", "gender", "address", "phone",
-          "birthday", "email", "name", "register_date", "nik", "is_verified"
+          "birthday", "name", "register_date", "nik", "is_verified"
         )
       })
       .preload("doctor")
@@ -110,7 +110,6 @@ export default class MedicalRecordsController {
 
     response.ok({
       message: "Berhasil menghapus data rekam medik",
-      data: {},
     });
   }
 }

@@ -95,7 +95,6 @@ export default class ClinicQueuesController {
 
     response.ok({
       message: "Berhasil menghapus data antrian klinik",
-      data: {},
     });
   }
 }

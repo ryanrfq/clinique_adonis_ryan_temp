@@ -73,8 +73,7 @@ export default class RegistrationQueuesController {
     await data.delete();
 
     response.ok({
-      message: "Berhasil menghapus data antrian registrasi",
-      data: {},
+      message: "Berhasil menghapus data antrian registrasi"
     });
   }
 }

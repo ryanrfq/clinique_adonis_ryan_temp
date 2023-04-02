@@ -53,12 +53,12 @@ Route.group(() => {
         })
 
     Route.get("/patient/index", "PatientsController.showLoggedIn")
-        .middleware([`checkUserRole:${Object.values(UserRole)}`, 'checkIsVerified'])
+        .middleware([`checkUserRole:${UserRole.PATIENT}`, 'checkIsVerified'])
 
     Route.post("/patients/request-verification", "PatientsController.requestNewVerification").middleware('checkUserRole:patient')
 
     Route.post("/patients/:id/image-upload", "PatientsController.imageUpload")
-        .middleware(`checkUserRole:${Object.values(UserRole)}`)
+        .middleware([`checkUserRole:${Object.values(UserRole)}`, 'checkIsVerified'])
 
     Route.shallowResource("patients.medical-records", "MedicalRecordsController").apiOnly()
         .middleware({ '*': `checkUserRole:${UserRole.EMPLOYEE}` })
@@ -71,7 +71,7 @@ Route.group(() => {
         })
 
     Route.get("/patient/medical-records", "MedicalRecordsController.showLoggedIn")
-        .middleware([`checkUserRole:${Object.values(UserRole)}`, 'checkIsVerified'])
+        .middleware([`checkUserRole:${UserRole.PATIENT}`, 'checkIsVerified'])
 
     Route.resource("/clinics", "ClinicsController").apiOnly()
         .middleware({ '*': `checkUserRole:${UserRole.EMPLOYEE}` })
@@ -135,10 +135,12 @@ Route.group(() => {
         .middleware('checkEmployeeRole:admin')
 
     Route.post('/change-password', 'AuthController.changePassword')
-        .middleware('checkUserRole:employee')
-        .middleware('checkEmployeeRole:admin')
 
     Route.post('/logout', 'AuthController.logout').middleware(`checkUserRole:${Object.values(UserRole)}`)
+
+    Route.post('/register-employee', 'AuthController.registerEmployee')
+        .middleware(`checkUserRole:${UserRole.EMPLOYEE}`)
+        .middleware('checkEmployeeRole:admin')
 
 }).middleware(['auth'])
 
@@ -148,7 +150,6 @@ Route.group(() => {
 // isi routenya (bisa pindahan dari grup atas)
 // }).middleware(['auth', 'isVerified'])
 
-// Route.post('/register', 'AuthController.register')
 Route.post('/login', 'AuthController.login')
 Route.post("/verify-patient", "PatientsController.verifyToken")
 

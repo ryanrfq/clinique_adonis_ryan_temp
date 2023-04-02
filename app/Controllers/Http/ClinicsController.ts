@@ -79,9 +79,6 @@ export default class ClinicsController {
     const data = await Clinic.findOrFail(id);
     await data.delete();
 
-    response.ok({
-      message: "Berhasil menghapus data klinik",
-      data: {},
-    });
+    response.ok({ message: "Berhasil menghapus data klinik" })
   }
 }

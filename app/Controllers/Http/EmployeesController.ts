@@ -8,17 +8,8 @@ import UploadImageEmployeeValidator from "App/Validators/UploadImageEmployeeVali
 export default class EmployeesController {
   public async index({ response }: HttpContextContract) {
     const data = await Employee.query().select(
-      "id",
-      "name",
-      "username",
-      "nik",
-      "role",
-      "join_date",
-      "phone_number",
-      "address",
-      "email",
-      "specialization",
-      "gender"
+      "id", "name", "nik", "role", "join_date", "phone_number",
+      "address", "specialization", "gender"
     );
 
     response.ok({
@@ -44,17 +35,8 @@ export default class EmployeesController {
     const employeeData = await Employee.query()
       .where("id", id)
       .select(
-        "id",
-        "name",
-        "username",
-        "nik",
-        "role",
-        "join_date",
-        "phone_number",
-        "address",
-        "email",
-        "specialization",
-        "gender"
+        "id", "name", "nik", "role", "join_date",
+        "phone_number", "address", "specialization", "gender"
       )
       .firstOrFail();
 
@@ -111,9 +93,6 @@ export default class EmployeesController {
     const employee = await Employee.findOrFail(id);
     await employee.delete();
 
-    response.ok({
-      message: `Berhasil menghapus data karyawan ${employee.name}`,
-      data: {},
-    });
+    response.ok({ message: `Berhasil menghapus data karyawan ${employee.name}` })
   }
 }

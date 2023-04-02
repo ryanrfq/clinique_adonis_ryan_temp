@@ -29,7 +29,7 @@ export default class CreateEmployeeValidator {
       rules.unique({ table: "employees", column: "nik" }),
     ]),
     role: schema.enum(Object.values(EmployeeRole)),
-    join_date: schema.date({ format: "yyyy-MM-dd" }),
+    // join_date: schema.date({ format: "yyyy-MM-dd" }),
     phone_number: schema.string({ trim: true }, [
       rules.regex(new RegExp("^[0-9]+$")),
       rules.minLength(10),

@@ -99,6 +99,7 @@ export default class PatientsController {
     const data = await Patient.findOrFail(id)
     const imageName = `patient_${id}.${payload.image.extname}`
 
+    // todo: jika format gambar berbeda, tidak di overwrite
     await payload.image.moveToDisk('patients', { name: imageName, overwrite: true })
 
     const beHost = "localhost:3333"
@@ -204,9 +205,6 @@ export default class PatientsController {
     const data = await Patient.findOrFail(id);
     await data.delete();
 
-    response.ok({
-      message: `Berhasil menghapus data pasien ${data.id}`,
-      data: {},
-    });
+    response.ok({ message: `Berhasil menghapus data pasien ${data.id}` })
   }
 }

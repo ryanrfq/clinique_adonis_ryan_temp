@@ -7,7 +7,7 @@ import Drive from '@ioc:Adonis/Core/Drive'
 export default class DoctorsController {
   public async index({ response }: HttpContextContract) {
     const data = await Doctor.query().preload("employee", (employeeQuery) => {
-      employeeQuery.select("name", "email", "phone_number");
+      employeeQuery.select("name", "phone_number")
     });
 
     response.ok({
@@ -54,7 +54,7 @@ export default class DoctorsController {
     const data = await Doctor.query()
       .where("id", id)
       .preload("employee", (employeeQuery) => {
-        employeeQuery.select("name", "email", "phone_number");
+        employeeQuery.select("name", "phone_number");
       })
       .firstOrFail();
 
@@ -94,9 +94,6 @@ export default class DoctorsController {
       .firstOrFail();
     await doctor.delete();
 
-    response.ok({
-      message: `Berhasil menghapus data ${doctor.employee.name}`,
-      data: {},
-    });
+    response.ok({ message: `Berhasil menghapus data ${doctor.employee.name}` })
   }
 }

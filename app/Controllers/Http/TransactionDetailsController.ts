@@ -84,7 +84,6 @@ export default class TransactionDetailsController {
 
     response.ok({
       message: "Berhasil menghapus data detail transaksi",
-      data: {},
     });
   }
 }
