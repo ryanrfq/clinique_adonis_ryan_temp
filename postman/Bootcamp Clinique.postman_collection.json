@@ -51,7 +51,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Ano Nymous\",\r\n    \"username\": \"anonymous_Se\",\r\n    \"password\": \"12121212\",\r\n    \"password_confirmation\": \"12121212\",\r\n    \"nik\": \"3509201201360001\",\r\n    \"role\": \"pharmacy\",\r\n    \"join_date\": \"2023-01-19\",\r\n    \"phone_number\": \"0812345678\",\r\n    \"address\": \"internet\",\r\n    \"email\": \"anonymouse@mail4.com\",\r\n    \"specialization\": \"none\",\r\n    \"gender\": \"M\"\r\n}",
+							"raw": "{\r\n    \"user_id\": \"b27cd2e9-f9fb-4b01-baa7-161dac1702d6\",\r\n    \"name\": \"Kirby\",\r\n    \"nik\": \"3509201201360009\",\r\n    \"role\": \"doctor\",\r\n    \"phone_number\": \"0812345678\",\r\n    \"address\": \"internet\",\r\n    \"specialization\": \"none\",\r\n    \"gender\": \"M\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -108,18 +108,18 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/Primality/Downloads/162070226578815499/162070226578815499/7a3194271872d95f6e1c13690463d4a1.png"
+									"src": "/C:/Users/Primality/Downloads/163600567620718696/163600567620718696/c6d326dc1653f335d0fde3935e971ca1.png"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}/image-upload",
+							"raw": "{{URL}}/employees/{{EMPLOYEE_ID}}/image-upload",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"doctors",
-								"{{DOCTOR_ID}}",
+								"employees",
+								"{{EMPLOYEE_ID}}",
 								"image-upload"
 							]
 						}
@@ -193,7 +193,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"employee_id\": \"29722285-69b4-419a-9c06-69fd7cfe41a1\",\r\n    \"license_number\": \"512.322/IV/IP.OD/2020\",\r\n    \"specialization\": \"organ dalam\",\r\n    \"fee\": 250000\r\n}",
+							"raw": "{\r\n    \"employee_id\": \"a46a9516-d379-4b7a-944e-c433397b5c36\",\r\n    \"license_number\": \"512.322/IV/IP.OD/2020\",\r\n    \"specialization\": \"organ dalam\",\r\n    \"fee\": 250000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -268,7 +268,7 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/Primality/Downloads/162070226578815499/162070226578815499/7a3194271872d95f6e1c13690463d4a1.png"
+									"src": "/C:/Users/Primality/Downloads/163600567620718696/163600567620718696/66802432883adf2f91efe6304256db81.png"
 								}
 							]
 						},
@@ -561,6 +561,42 @@
 					"response": []
 				},
 				{
+					"name": "GET /patient/index (verified)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patient/index",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patient",
+								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /patient/medical-records (verified)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patient/medical-records",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patient",
+								"medical-records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GET /patients/:id",
 					"request": {
 						"method": "GET",
@@ -642,18 +678,18 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/Primality/Downloads/162070226578815499/162070226578815499/7a3194271872d95f6e1c13690463d4a1.png"
+									"src": "/C:/Users/Primality/Downloads/163600567620718696/163600567620718696/f81d0b692118c935f8fee1d4c171a1c5.png"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{URL}}/doctors/{{DOCTOR_ID}}/image-upload",
+							"raw": "{{URL}}/patients/{{PATIENT_ID}}/image-upload",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"doctors",
-								"{{DOCTOR_ID}}",
+								"patients",
+								"{{PATIENT_ID}}",
 								"image-upload"
 							]
 						}
@@ -673,6 +709,56 @@
 							"path": [
 								"patients",
 								"{{PATIENT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request New Verification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/patients/request-verification",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"patients",
+								"request-verification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Token (simulasi post form dari email)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "hVXWt0pvTQYQC8n",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "test@mail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/verify-patient",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"verify-patient"
 							]
 						}
 					},
@@ -1251,13 +1337,13 @@
 			"name": "Auth",
 			"item": [
 				{
-					"name": "register",
+					"name": "Register Pasien",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"employee_id\": \"e3012e0e-e924-4788-85e5-aaa4c7566c71\",\r\n    \"email\": \"gordonfreeman@blackmesa.org\",\r\n    \"password\": \"wheresmyhelmet\",\r\n    \"password_confirmation\": \"wheresmyhelmet\"\r\n}",
+							"raw": "{\r\n    \"email\": \"opensuse@tumbleweed.org\",\r\n    \"password\": \"hihihaha\",\r\n    \"password_confirmation\": \"hihihaha\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1265,12 +1351,38 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/register",
+							"raw": "{{URL}}/patient-register",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
-								"register"
+								"patient-register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register Employee",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"dokterbaru@mail.org\",\r\n    \"password\": \"wheresmyhelmet\",\r\n    \"password_confirmation\": \"wheresmyhelmet\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/register-employee",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"register-employee"
 							]
 						},
 						"description": "```\n// login admin\n{\n    \"email\": \"anon@mail.com\",\n    \"password\": \"supermn\"\n}\n\n```"
@@ -1284,7 +1396,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": \"ce9c4d59-498e-497d-a18f-20356f42696f\",\r\n    \"password_new\": \"hahahe\",\r\n    \"password_new_confirmation\": \"hahahe\"\r\n}",
+							"raw": "{\r\n    \"password_new\": \"hahahe\",\r\n    \"password_new_confirmation\": \"hahahe\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1310,7 +1422,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"anon@mail.com\",\r\n    \"password\": \"supermn\"\r\n}",
+							"raw": "{\r\n    \"email\": \"edoalfredo@mail.com\",\r\n    \"password\": \"Ev9XLVAQr2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1326,14 +1438,14 @@
 								"login"
 							]
 						},
-						"description": "``` json\n// login admin\n{\n    \"email\": \"anon@mail.com\",\n    \"password\": \"supermn\"\n}\n// login pharmacy\n{\n    \"email\": \"nahuman@mail.com\",\n    \"password\": \"jfaGXcjM5\"\n}\n// login doctor\n{\n    \"email\": \"galihlazdy@mail.com\",\n    \"password\": \"RBb6gBgnF\"\n}\n\n```"
+						"description": "#### Silahkan gunakan email dan password sesuai role yang diinginkan:\n\n``` json\n// login admin (verified)\n{\n    \"email\": \"anon@mail.com\",\n    \"password\": \"supermn\"\n}\n// login pharmacy\n{\n    \"email\": \"nahuman@mail.com\",\n    \"password\": \"jfaGXcjM5\"\n}\n// login doctor\n{\n    \"email\": \"galihlazdy@mail.com\",\n    \"password\": \"RBb6gBgnF\"\n}\n// login pasien (verified)\n{\n    \"email\": \"erikwilliams@mail.com\",\n    \"password\": \"Bpf5es2F32\"\n}\n// login pasien (not verified)\n{\n    \"email\": \"edoalfredo@mail.com\",\n    \"password\": \"Ev9XLVAQr2\"\n}\n\n```"
 					},
 					"response": []
 				},
 				{
 					"name": "logout",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "{{URL}}/logout",
@@ -1342,6 +1454,76 @@
 							],
 							"path": [
 								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Utilities",
+			"item": [
+				{
+					"name": "Send Mail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/send-mail",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"send-mail"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"870f511e-acc0-4090-96e1-f186b45df667\",\r\n    \"email\": \"blackvoid@mail.com\",\r\n    \"password\": \"superblackhole\",\r\n    \"password_confirmation\": \"superblackhole\",\r\n    \"role\": \"employee\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
 							]
 						}
 					},
