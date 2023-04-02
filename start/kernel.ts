@@ -42,5 +42,8 @@ Server.middleware.register([
 */
 Server.middleware.registerNamed({
   auth: () => import('App/Middleware/Auth'),
-  checkRole: () => import('App/Middleware/CheckRole')
+  // checkRole: () => import('App/Middleware/CheckRole'),
+  checkEmployeeRole: () => import('App/Middleware/CheckEmployeeRole'),
+  checkUserRole: () => import('App/Middleware/CheckUserRole'),
+  checkIsVerified: () => import('App/Middleware/CheckIsVerified')
 })

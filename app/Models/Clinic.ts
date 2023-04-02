@@ -40,6 +40,8 @@ export default class Clinic extends BaseModel {
 
   @beforeCreate()
   public static async newId(clinic: Clinic) {
-    clinic.id = uuidv4()
+    if (!(clinic.id)) {
+      clinic.id = uuidv4()
+    }
   }
 }

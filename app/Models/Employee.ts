@@ -1,19 +1,17 @@
 import { DateTime } from "luxon";
-import { BaseModel, beforeCreate, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, BelongsTo, beforeCreate, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
 import { v4 as uuidv4 } from "uuid";
+import User from "./User";
 
 export default class Employee extends BaseModel {
   @column({ isPrimary: true })
   public id: string;
 
   @column()
+  public userId: string;
+
+  @column()
   public name: string;
-
-  @column()
-  public username: string;
-
-  @column()
-  public password: string;
 
   @column()
   public nik: string;
@@ -30,8 +28,6 @@ export default class Employee extends BaseModel {
   @column()
   public address: string;
 
-  @column()
-  public email: string;
 
   @column()
   public specialization: string | null;
@@ -42,6 +38,9 @@ export default class Employee extends BaseModel {
   @column()
   public imageId: string
 
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
 
@@ -50,6 +49,8 @@ export default class Employee extends BaseModel {
 
   @beforeCreate()
   public static async newId(employee: Employee) {
-    employee.id = uuidv4()
+    if (!(employee.id)) {
+      employee.id = uuidv4()
+    }
   }
 }

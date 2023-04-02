@@ -1,6 +1,7 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
 import MedicalRecord from "App/Models/MedicalRecord";
 import Patient from "App/Models/Patient";
+import User from "App/Models/User";
 import CreateMedicalRecordValidator from "App/Validators/CreateMedicalRecordValidator";
 import UpdateMedicalRecordValidator from "App/Validators/UpdateMedicalRecordValidator";
 
@@ -50,18 +51,8 @@ export default class MedicalRecordsController {
       .where("id", id)
       .preload("patient", (patientQuery) => {
         patientQuery.select(
-          "id",
-          "regist_by",
-          "status",
-          "gender",
-          "address",
-          "phone",
-          "birthday",
-          "email",
-          "name",
-          "register_date",
-          "nik",
-          "is_verified"
+          "id", "regist_by", "status", "gender", "address", "phone",
+          "birthday", "email", "name", "register_date", "nik", "is_verified"
         )
       })
       .preload("doctor")
@@ -72,6 +63,23 @@ export default class MedicalRecordsController {
       data: selectedData,
     });
   }
+
+  public async showLoggedIn({ auth, response }: HttpContextContract) {
+    const data = await User.query()
+      .where('id', auth.user!.id)
+      .preload('patient', pq => {
+        pq.preload('medicalRecord', mrq => {
+          mrq.preload('doctor')
+        })
+      })
+      .firstOrFail()
+
+    response.ok({
+      message: "Berhasil mengambil data rekam medik",
+      data: data
+    });
+  }
+
 
   // public async edit({}: HttpContextContract) {}
 

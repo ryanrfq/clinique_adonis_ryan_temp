@@ -40,6 +40,8 @@ export default class ClinicQueue extends BaseModel {
 
   @beforeCreate()
   public static async newId(cq: ClinicQueue) {
-    cq.id = uuidv4()
+    if (!(cq.id)) {
+      cq.id = uuidv4()
+    }
   }
 }

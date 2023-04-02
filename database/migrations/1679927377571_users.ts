@@ -1,4 +1,5 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
+import { UserRole } from 'Contracts/enums';
 
 export default class extends BaseSchema {
   protected tableName = 'users'
@@ -6,11 +7,13 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary().notNullable()
-      table.uuid("employee_id").references("employees.id").onUpdate("cascade").onDelete("cascade");
       table.string('email', 255).notNullable().unique()
       table.string('password', 180).notNullable()
+      table.enum('role', Object.values(UserRole)).defaultTo(UserRole.PATIENT)
       table.string('remember_me_token').nullable()
       table.boolean('is_verified').defaultTo(false)
+      table.string('token')
+      table.timestamp('token_expiry')
 
       /**
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL

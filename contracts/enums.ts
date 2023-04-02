@@ -3,10 +3,14 @@ export enum Gender {
   FEMALE = "F",
 }
 
-export enum Role {
+export enum EmployeeRole {
   DOCTOR = "doctor",
   PHARMACY = "pharmacy",
   ADMIN = "admin",
+}
+
+export enum UserRole {
+  EMPLOYEE = "employee",
   PATIENT = "patient"
 }
 

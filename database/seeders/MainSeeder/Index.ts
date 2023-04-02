@@ -18,6 +18,7 @@ export default class IndexSeeder extends BaseSeeder {
   }
 
   public async run() {
+    await this.runSeeder(await import('../SeederUser'))
     await this.runSeeder(await import('../SeederEmployee'))
     await this.runSeeder(await import('../SeederDoctor'))
     await this.runSeeder(await import('../SeederPharmacist'))
@@ -28,6 +29,5 @@ export default class IndexSeeder extends BaseSeeder {
     await this.runSeeder(await import('../SeederMedicalRecord'))
     await this.runSeeder(await import('../SeederTransaction'))
     await this.runSeeder(await import('../SeederTransactionDetail'))
-    await this.runSeeder(await import('../SeederUser'))
   }
 }

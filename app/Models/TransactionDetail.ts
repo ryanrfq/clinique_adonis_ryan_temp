@@ -27,6 +27,8 @@ export default class TransactionDetail extends BaseModel {
 
   @beforeCreate()
   public static async newId(td: TransactionDetail) {
-    td.id = uuidv4()
+    if (!(td.id)) {
+      td.id = uuidv4()
+    }
   }
 }
