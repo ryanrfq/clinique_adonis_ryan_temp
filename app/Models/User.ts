@@ -34,13 +34,13 @@ export default class User extends BaseModel {
   @column()
   public token: string
 
-  @column()
+  @column.dateTime()
   public tokenExpiry: DateTime
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: false })
   public createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: false, autoUpdate: false })
   public updatedAt: DateTime
 
   @beforeSave()
