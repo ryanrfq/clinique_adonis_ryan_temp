@@ -1,0 +1,27 @@
+paths:
+  /patients:
+    get:
+      tags:
+        - patients
+      summary: Get data from all patient
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Berhasil mengambil data semua pasien
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PatientFull"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseUnauthorized"

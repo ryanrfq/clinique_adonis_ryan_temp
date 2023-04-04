@@ -1,0 +1,123 @@
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          example: anon@mail.com
+        password:
+          type: string
+          example: supermn
+      xml:
+        name: LoginRequest
+    Patient:
+      type: object
+      properties:
+        regist_by:
+          type: string
+          example: 29722285-69b4-419a-9c06-69fd7cfe41a1
+        user_id:
+          type: string
+          example: 8b9b7125-dc8c-47fb-bae4-1b22ab10f289
+        id:
+          type: string
+          example: f63a3906-63b2-43c3-8354-0acb75f1a7a9
+        register_date:
+          type: string
+          example: "2023-04-04T20:05:51.456+07:00"
+        created_at:
+          type: string
+          example: "2023-04-04T19:05:51.456+07:00"
+        updated_at:
+          type: string
+          example: "2023-04-04T20:05:51.456+07:00"
+      xml:
+        name: Patient
+    PatientFull:
+      type: object
+      properties:
+        regist_by:
+          type: string
+          example: 29722285-69b4-419a-9c06-69fd7cfe41a1
+        user_id:
+          type: string
+          example: 8b9b7125-dc8c-47fb-bae4-1b22ab10f289
+        status:
+          type: string
+          example: menikah
+        gender:
+          type: string
+          example: M
+        address:
+          type: string
+          example: JL Veteran No. 7&7A, Surabaya
+        phone:
+          type: string
+          example: 088257425333
+        birthday:
+          type: string
+          example: "2001-08-01"
+        name:
+          type: string
+          example: Doddy Rachman
+        nik:
+          type: string
+          example: "3326164107570382"
+        is_verified:
+          type: boolean
+          example: false
+        image_id:
+          type: string
+          example: null
+        id:
+          type: string
+          example: f63a3906-63b2-43c3-8354-0acb75f1a7a9
+        register_date:
+          type: string
+          example: "2023-04-04T20:05:51.456+07:00"
+        created_at:
+          type: string
+          example: "2023-04-04T19:05:51.456+07:00"
+        updated_at:
+          type: string
+          example: "2023-04-04T20:05:51.456+07:00"
+      xml:
+        name: PatientFull
+    ResponseUnauthorized:
+      type: object
+      properties:
+        error:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "E_UNAUTHORIZED_ACCESS: Unauthorized access"
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          example: randomuser@mail.com
+        role:
+          type: string
+          example: patient
+        id:
+          type: string
+          example: 8b9b7125-dc8c-47fb-bae4-1b22ab10f289
+        token:
+          type: string
+          example: Mp4uYFOjV9zyHML
+        token_expiry:
+          type: string
+          example: "2023-04-04T23:05:51.210+07:00"
+  requestBodies:
+    LoginRequest:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/LoginRequest"
+      description: Request object needed when requesting login
+      required: true

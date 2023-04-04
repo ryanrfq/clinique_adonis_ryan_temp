@@ -1,8 +1,6 @@
 import Route from "@ioc:Adonis/Core/Route";
 import { EmployeeRole, UserRole } from "Contracts/enums";
 
-// todo: testing akses pasien, sebelum dan sesudah verif
-// todo: cek lagi image upload
 Route.group(() => {
     Route.resource("/employees", "EmployeesController").apiOnly()
         .middleware({ '*': `checkUserRole:${UserRole.EMPLOYEE}` })
@@ -136,7 +134,7 @@ Route.group(() => {
 
     Route.post('/change-password', 'AuthController.changePassword')
 
-    Route.post('/logout', 'AuthController.logout').middleware(`checkUserRole:${Object.values(UserRole)}`)
+    Route.get('/logout', 'AuthController.logout').middleware(`checkUserRole:${Object.values(UserRole)}`)
 
     Route.post('/register-employee', 'AuthController.registerEmployee')
         .middleware(`checkUserRole:${UserRole.EMPLOYEE}`)

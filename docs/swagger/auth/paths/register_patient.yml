@@ -1,0 +1,63 @@
+paths:
+  /patient-register:
+    post:
+      tags:
+        - auth
+      summary: Register new patient
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Berhasil meregistrasi pasien baru
+                  patientData:
+                    $ref: "#/components/schemas/Patient"
+                  userData:
+                    $ref: "#/components/schemas/User"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseUnauthorized"
+        "422":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        rule:
+                          type: string
+                          example: unique
+                        field:
+                          type: string
+                          example: email
+                        message:
+                          type: string
+                          example: unique validation failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: randomuser@mail.com
+                password:
+                  type: string
+                  example: topsecret
+                password_confirmation:
+                  type: string
+                  example: topsecret
+        required: true

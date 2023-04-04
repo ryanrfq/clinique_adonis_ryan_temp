@@ -1,0 +1,5 @@
+tags:
+  - name: auth
+    description: requests that needs or related to authentication
+  - name: patients
+    description: requests related to Patient model
