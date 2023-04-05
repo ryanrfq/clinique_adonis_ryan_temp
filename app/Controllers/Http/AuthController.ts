@@ -42,20 +42,30 @@ export default class AuthController {
             userId: userData.id,
         })
 
-        await Mail.sendLater((message) => {
-            message
-                // todo: setelah berhasil kirim lewat gmail..
-                // ubah value .from dengan real value, 
-                // cek apakah tetap terkirim
-                .from('info@example.com')
-                .to(userData.email)
-                .subject('Verifikasi Akun Anda')
-                .htmlView('emails/patient/welcome', {
-                    email: userData.email,
-                    action_url: `http://localhost:3333/verify-patient`,
-                    token: userData.token
-                })
-        })
+        try {
+            await Mail.send((message) => {
+                message
+                    // todo: setelah berhasil kirim lewat gmail..
+                    // ubah value .from dengan real value, 
+                    // cek apakah tetap terkirim
+                    .from('info@example.com')
+                    .to(userData.email)
+                    .subject('Verifikasi Akun Anda')
+                    .htmlView('emails/patient/welcome', {
+                        email: userData.email,
+                        action_url: `http://localhost:3333/verify-patient`,
+                        token: userData.token
+                    })
+            })
+
+        } catch (error) {
+            console.log("Gagal kirim email ", error)
+
+            response.badRequest({
+                message: "Gagal kirim email",
+                error
+            })
+        }
 
         response.created({
             message: "Berhasil meregistrasi pasien baru",
