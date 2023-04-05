@@ -24,31 +24,31 @@ export default class AuthController {
 
     public async patientRegister({ request, response, auth }: HttpContextContract) {
         const payload = await request.validate(CreateUserValidator)
-
-        const registrar = await User.query()
-            .where('id', auth.user!.id)
-            .preload('employee')
-            .firstOrFail()
-
-        const userData = await User.create({
-            ...payload,
-            role: UserRole.PATIENT
-        })
-
-        // hanya isi registrar dan id user dari si pasien
-        // sisanya si pasien yg mengisi
-        const patientData = await Patient.create({
-            registBy: registrar.employee.id,
-            userId: userData.id,
-        })
-
         try {
+
+            const registrar = await User.query()
+                .where('id', auth.user!.id)
+                .preload('employee')
+                .firstOrFail()
+
+            const userData = await User.create({
+                ...payload,
+                role: UserRole.PATIENT
+            })
+
+            // hanya isi registrar dan id user dari si pasien
+            // sisanya si pasien yg mengisi
+            const patientData = await Patient.create({
+                registBy: registrar.employee.id,
+                userId: userData.id,
+            })
+
             await Mail.send((message) => {
                 message
                     // todo: setelah berhasil kirim lewat gmail..
                     // ubah value .from dengan real value, 
                     // cek apakah tetap terkirim
-                    .from('info@example.com')
+                    .from('ryanrfq5@gmail.com')
                     .to(userData.email)
                     .subject('Verifikasi Akun Anda')
                     .htmlView('emails/patient/welcome', {
@@ -58,20 +58,21 @@ export default class AuthController {
                     })
             })
 
+            response.created({
+                message: "Berhasil meregistrasi pasien baru",
+                userData,
+                patientData
+            })
         } catch (error) {
             console.log("Gagal kirim email ", error)
 
-            response.badRequest({
+            return response.badRequest({
                 message: "Gagal kirim email",
                 error
             })
         }
 
-        response.created({
-            message: "Berhasil meregistrasi pasien baru",
-            userData,
-            patientData
-        })
+
     }
 
     public async changePassword({ request, response, auth }: HttpContextContract) {
